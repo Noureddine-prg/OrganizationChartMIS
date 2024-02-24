@@ -227,3 +227,4 @@ C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\n
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.genruntimeconfig.cache
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\ref\OrganizationChartMIS.dll
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.sourcelink.json
