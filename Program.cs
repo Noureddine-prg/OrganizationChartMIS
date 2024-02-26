@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Routing;
+using OrganizationChartMIS.Data.DatabaseHelper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add framework services.
@@ -19,6 +22,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 */
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+builder.Services.AddSingleton(new DatabaseHelper(connectionString));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
