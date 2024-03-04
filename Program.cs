@@ -23,8 +23,8 @@ if (!app.Environment.IsDevelopment())
 }
 */
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-builder.Services.AddSingleton(new DatabaseHelper(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("OrgMISConnection")!;
+//builder.Services.AddSingleton(new DatabaseHelper(connectionString));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
