@@ -44,6 +44,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
+            },
             "Telerik.UI.for.AspNet.Core.Trial": {
               "target": "Package",
               "version": "[2024.1.130, )"

@@ -30,6 +30,22 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/OrganizationChart/Modals/_AddEditEmployeePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uQ2hhcnRcTW9kYWxzXF9BZGRFZGl0RW1wbG95ZWVQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/OrganizationChart/Modals/_AddEditPositionPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uQ2hhcnRcTW9kYWxzXF9BZGRFZGl0UG9zaXRpb25QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/OrganizationChart/Modals/_DeleteEmployeePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uQ2hhcnRcTW9kYWxzXF9EZWxldGVFbXBsb3llZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/OrganizationChart/Modals/_DeletePositionPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uQ2hhcnRcTW9kYWxzXF9EZWxldGVQb3NpdGlvblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/OrganizationChart/OrganizationChart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uQ2hhcnRcT3JnYW5pemF0aW9uQ2hhcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
