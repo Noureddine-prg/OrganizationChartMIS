@@ -9,6 +9,11 @@ builder.Services
 // Add Kendo UI services to the services container
 builder.Services.AddKendo();
 
+builder.Services.AddTransient<DatabaseHelper>(serviceProvider =>
+{
+    return new DatabaseHelper(builder.Configuration);
+});
+
 // Add services to the container.
 
 var app = builder.Build();
@@ -25,6 +30,11 @@ if (!app.Environment.IsDevelopment())
 
 var connectionString = builder.Configuration.GetConnectionString("OrgMISConnection")!;
 //builder.Services.AddSingleton(new DatabaseHelper(connectionString));
+
+
+
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

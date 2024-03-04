@@ -11,11 +11,10 @@ namespace OrganizationChartMIS.Data.DatabaseHelper
     {
         private readonly string _connectionString;
 
-        public DatabaseHelper(string connectionString)
+        public DatabaseHelper(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
-
         public SqlConnection EstablishConnection()
         {
             var connection = new SqlConnection(_connectionString);
@@ -24,17 +23,17 @@ namespace OrganizationChartMIS.Data.DatabaseHelper
         }
 
         // retrieves data set and stores it in datatable
-        public DataTable ExecuteQuery(string query, Dictionary<string,object> parameters = null) 
+        public DataTable ExecuteQuery(string query, Dictionary<string, object> parameters = null)
         {
-            using (var connection = EstablishConnection()) 
+            using (var connection = EstablishConnection())
             {
-                using (var command = new SqlCommand(query)) 
+                using (var command = new SqlCommand(query, connection))
                 {
-                    if (parameters != null) 
+                    if (parameters != null)
                     {
                         foreach (var entry in parameters)
                         {
-                            command.Parameters.AddWithValue(entry.Key, entry.Value);
+                            command.Parameters.AddWithValue(entry.Key, entry.Value ?? DBNull.Value);
                         }
                     }
 

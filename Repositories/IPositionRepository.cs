@@ -13,7 +13,7 @@ namespace OrganizationChartMIS.Repositories
         public ICollection<Position> ChildPositions { get; set; }
         */
 
-        void GetPositions();
+        IEnumerable<Position> GetAllPositions();
         void GetPosition(string positionId);
         void AddPosition(Position position);
         void UpdatePosition(Position position);
