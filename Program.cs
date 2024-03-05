@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Routing;
 using OrganizationChartMIS.Data.DatabaseHelper;
+using OrganizationChartMIS.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services
 	.AddRazorPages().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 // Add Kendo UI services to the services container
 builder.Services.AddKendo();
+
+builder.Services.AddScoped<PositionRepository>();
 
 builder.Services.AddTransient<DatabaseHelper>(serviceProvider =>
 {
@@ -30,11 +33,6 @@ if (!app.Environment.IsDevelopment())
 
 var connectionString = builder.Configuration.GetConnectionString("OrgMISConnection")!;
 //builder.Services.AddSingleton(new DatabaseHelper(connectionString));
-
-
-
-
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -15,6 +15,7 @@ namespace OrganizationChartMIS.Data.DatabaseHelper
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         }
+
         public SqlConnection EstablishConnection()
         {
             var connection = new SqlConnection(_connectionString);
