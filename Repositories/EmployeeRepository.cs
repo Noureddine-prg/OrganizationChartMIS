@@ -59,6 +59,7 @@ namespace OrganizationChartMIS.Repositories
 
             return employee;
         }
+
         public void AddEmployee(Employee employee) {
             string query = "INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, PositionID) " +
                 "VALUES (@EmployeeID, @FirstName, @LastName, @Email, @PositionID)";
@@ -71,7 +72,10 @@ namespace OrganizationChartMIS.Repositories
                 { "@Email", employee.Email},
                 { "@PositionID", employee.PositionID }
             };
+
+            _databaseHelper.ExecuteQuery(query, parameters);
         }
+
         public void UpdateEmployee(Employee employee) {
             string query = @"UPDATE Employees 
             SET FirstName=@FirstName, 
@@ -90,6 +94,9 @@ namespace OrganizationChartMIS.Repositories
 
             _databaseHelper.ExecuteUpdate(query, parameters);
         }
-        public void DeleteEmployee(string employeeID) { }
+
+        public void DeleteEmployee(string employeeID) { 
+            //flag employee not present anymore dont remove from db 
+        }
     }
 }

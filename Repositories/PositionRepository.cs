@@ -146,7 +146,7 @@ namespace OrganizationChartMIS.Repositories
             {
                 Console.WriteLine(ex.Message, ex);
             }
-
+            
         }
 
     }
