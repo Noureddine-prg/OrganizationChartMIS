@@ -1,7 +1,6 @@
 using OrganizationChartMIS.Data.Repositories;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrganizationChartMIS.Data.Models;
-using System.Collections.Generic;
 
 namespace OrganizationChartMIS.Pages.Dashboard
 {
@@ -14,13 +13,11 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public IList<Employee> Employees { get; set; }
 
         // Dependency injection
-        //
         public DashboardModel(PositionRepository positionRepository, EmployeeRepository employeeRepository)
         {
             _positionRepository = positionRepository;
             _employeeRepository = employeeRepository;
         }
-
 
         public void OnGet()
         {

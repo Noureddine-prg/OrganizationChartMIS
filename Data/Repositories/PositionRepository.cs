@@ -18,7 +18,7 @@ namespace OrganizationChartMIS.Data.Repositories
         {
 
             var positions = new List<Position>();
-            string query = "SELECT PositionID, Title, Description, ParentPositionID, CurrentEmployee FROM Positions";
+            string query = "SELECT poid, name, department, hierarchyLevel FROM position";
 
             try
             {
@@ -28,11 +28,10 @@ namespace OrganizationChartMIS.Data.Repositories
                 {
                     positions.Add(new Position
                     {
-                        PositionID = row["PositionID"].ToString()!,
-                        Title = row["Title"].ToString()!,
-                        Description = row.IsNull("Description") ? null : row["Description"].ToString(),
-                        ParentPositionID = row.IsNull("ParentPositionID") ? null : row["ParentPositionID"].ToString(),
-                        CurrentEmployee = row.IsNull("CurrentEmployee") ? "Vacant" : row["CurrentEmployee"].ToString()
+                        Poid = row["poid"].ToString(),
+                        Name = row["name"].ToString(),
+                        Department = row["department"].ToString(),
+                        HierarchyLevel = row["hierarchyLevel"].ToString()
                     });
                 }
             }
@@ -44,19 +43,14 @@ namespace OrganizationChartMIS.Data.Repositories
             return positions;
         }
 
-        public Position GetPosition(string positionId)
+        public Position GetPosition(string poid)
         {
 
             Position position = null;
-
-            string query = @"
-                SELECT PositionID, Title, ParentPositionID, CurrentEmployee 
-                FROM Positions 
-                WHERE PositionID = @PositionID";
-
+            string query = "SELECT poid, name, department, hierarchyLevel FROM Positions WHERE poid = @Poid";
             var parameters = new Dictionary<string, object>
             {
-                { "@PositionID", positionId}
+                { "@Poid", poid }
             };
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
@@ -66,32 +60,27 @@ namespace OrganizationChartMIS.Data.Repositories
                 DataRow row = dataTable.Rows[0];
                 position = new Position
                 {
-                    PositionID = row["PositionID"].ToString()!,
-                    Title = row["Title"].ToString()!,
-                    Description = row.IsNull("Description") ? null : row["Description"].ToString(),
-                    ParentPositionID = row.IsNull("ParentPositionID") ? null : row["ParentPositionID"].ToString(),
-                    CurrentEmployee = row.IsNull("CurrentEmployee") ? "Vacant" : row["CurrentEmployee"].ToString()
+                    Poid = row["poid"].ToString()!,
+                    Name = row["name"].ToString()!,
+                    Department = row["department"].ToString()!,
+                    HierarchyLevel = row["hierarchyLevel"].ToString()!
                 };
             }
 
-            return position;
+            return position!;
 
         }
 
         public void AddPosition(Position position)
         {
 
-            string query = @"
-                INSERT INTO Positions(PositionId,Title,Description,ParentPositionID)
-                VALUES(@PositionID, @Title, @Description, @ParentPositionID)
-            ";
-
+            string query = "INSERT INTO Positions (poid, name, department, hierarchyLevel) VALUES (@Poid, @Name, @Department, @HierarchyLevel)";
             var parameters = new Dictionary<string, object>
             {
-                { "@PositionID", position.PositionID},
-                { "@Title", position.Title},
-                { "@Description", position.Description},
-                { "@ParentPositionID", (object)position.ParentPositionID ?? DBNull.Value}
+                { "@Poid", position.Poid},
+                { "@Name", position.Name},
+                { "@Department", position.Department},
+                { "@HierarchyLevel", position.HierarchyLevel}
             };
 
             try
@@ -108,19 +97,13 @@ namespace OrganizationChartMIS.Data.Repositories
         public void UpdatePosition(Position position)
         {
 
-            string query =
-            @"UPDATE Positions SET 
-            Title = @Title,
-            Description = @Description,
-            ParentPositionID = @ParentPositionID
-            WHERE PositionID = @PositionID";
-
+            string query = "UPDATE Positions SET name = @Name, department = @Department, hierarchyLevel = @HierarchyLevel WHERE poid = @Poid";
             var parameters = new Dictionary<string, object>
             {
-                { "@PositionID", position.PositionID },
-                { "@Title", position.Title},
-                { "@Description", position.Description },
-                { "@ParentPositionID", (object)position.ParentPositionID ?? DBNull.Value}
+                { "@Poid", position.Poid },
+                { "@Name", position.Name },
+                { "@Department", position.Department },
+                { "@HierarchyLevel", position.HierarchyLevel }
             };
 
             try
