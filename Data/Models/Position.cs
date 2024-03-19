@@ -12,7 +12,6 @@ namespace OrganizationChartMIS.Data.Models
         public Position ParentPosition { get; set; }
         public ICollection<Position> ChildPositions { get; set; }
 
-
         public Position()
         {
             ChildPositions = new HashSet<Position>();

@@ -207,8 +207,6 @@ C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\n
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.AssemblyInfoInputs.cache
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.AssemblyInfo.cs
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.csproj.CoreCompileInputs.cache
-C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.RazorAssemblyInfo.cache
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\OrganizationChartMIS.RazorAssemblyInfo.cs
 C:\Users\noure\OneDrive\Desktop\NET Programming\OrganizationChartMIS\obj\Debug\net8.0\staticwebassets.build.json

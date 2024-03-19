@@ -1,6 +1,6 @@
 ﻿using OrganizationChartMIS.Data.Models;
 
-namespace OrganizationChartMIS.Repositories
+namespace OrganizationChartMIS.Data.Repositories
 {
     public interface IEmployeeRepository
     {

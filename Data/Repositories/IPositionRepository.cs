@@ -1,6 +1,6 @@
 ﻿using OrganizationChartMIS.Data.Models;
 
-namespace OrganizationChartMIS.Repositories
+namespace OrganizationChartMIS.Data.Repositories
 {
     public interface IPositionRepository
     {
@@ -8,6 +8,6 @@ namespace OrganizationChartMIS.Repositories
         Position GetPosition(string positionId);
         void AddPosition(Position position);
         void UpdatePosition(Position position);
-        void DeletePosition(string positionId); 
+        void DeletePosition(string positionId);
     }
 }

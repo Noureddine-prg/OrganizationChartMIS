@@ -1,9 +1,8 @@
-﻿using OrganizationChartMIS.Data.DatabaseHelper;
+﻿using OrganizationChartMIS.Data.Context;
 using OrganizationChartMIS.Data.Models;
-using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace OrganizationChartMIS.Repositories
+namespace OrganizationChartMIS.Data.Repositories
 {
     public class PositionRepository : IPositionRepository
     {
@@ -15,12 +14,14 @@ namespace OrganizationChartMIS.Repositories
             _databaseHelper = new DatabaseHelper(configuration);
         }
 
-        public List<Position> GetAllPositions() {
-            
+        public List<Position> GetAllPositions()
+        {
+
             var positions = new List<Position>();
             string query = "SELECT PositionID, Title, Description, ParentPositionID, CurrentEmployee FROM Positions";
 
-            try {
+            try
+            {
                 DataTable dataTable = _databaseHelper.ExecuteQuery(query);
 
                 foreach (DataRow row in dataTable.Rows)
@@ -31,19 +32,21 @@ namespace OrganizationChartMIS.Repositories
                         Title = row["Title"].ToString()!,
                         Description = row.IsNull("Description") ? null : row["Description"].ToString(),
                         ParentPositionID = row.IsNull("ParentPositionID") ? null : row["ParentPositionID"].ToString(),
-                        CurrentEmployee = row.IsNull("CurrentEmployee") ? "Vacant" : row["CurrentEmployee"].ToString()                
-                    }); 
+                        CurrentEmployee = row.IsNull("CurrentEmployee") ? "Vacant" : row["CurrentEmployee"].ToString()
+                    });
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
 
             return positions;
         }
 
-        public Position GetPosition(string positionId) {
-            
+        public Position GetPosition(string positionId)
+        {
+
             Position position = null;
 
             string query = @"
@@ -58,9 +61,9 @@ namespace OrganizationChartMIS.Repositories
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
 
-            if (dataTable.Rows.Count > 0) 
+            if (dataTable.Rows.Count > 0)
             {
-                DataRow row  = dataTable.Rows[0];
+                DataRow row = dataTable.Rows[0];
                 position = new Position
                 {
                     PositionID = row["PositionID"].ToString()!,
@@ -72,11 +75,12 @@ namespace OrganizationChartMIS.Repositories
             }
 
             return position;
-                 
+
         }
-        
-        public void AddPosition(Position position) {
-            
+
+        public void AddPosition(Position position)
+        {
+
             string query = @"
                 INSERT INTO Positions(PositionId,Title,Description,ParentPositionID)
                 VALUES(@PositionID, @Title, @Description, @ParentPositionID)
@@ -90,20 +94,21 @@ namespace OrganizationChartMIS.Repositories
                 { "@ParentPositionID", (object)position.ParentPositionID ?? DBNull.Value}
             };
 
-            try 
+            try
             {
                 _databaseHelper.ExecuteQuery(query, parameters);
             }
-            catch(Exception ex) 
-            { 
-                Console.WriteLine(ex.Message, ex); 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message, ex);
             }
-            
+
         }
 
-        public void UpdatePosition(Position position) {
-            
-            string query = 
+        public void UpdatePosition(Position position)
+        {
+
+            string query =
             @"UPDATE Positions SET 
             Title = @Title,
             Description = @Description,
@@ -129,8 +134,9 @@ namespace OrganizationChartMIS.Repositories
 
         }
 
-        public void DeletePosition(string positionId) {
-            
+        public void DeletePosition(string positionId)
+        {
+
             string query = "DELETE FROM Positions WHERE PositionID = @PositionID";
 
             var parameters = new Dictionary<string, object>
@@ -146,7 +152,7 @@ namespace OrganizationChartMIS.Repositories
             {
                 Console.WriteLine(ex.Message, ex);
             }
-            
+
         }
 
     }

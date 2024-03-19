@@ -1,24 +1,26 @@
 using Microsoft.AspNetCore.Mvc.Routing;
-using OrganizationChartMIS.Data.DatabaseHelper;
-using OrganizationChartMIS.Repositories;
+using OrganizationChartMIS.Data.Context;
+using OrganizationChartMIS.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add framework services.
 builder.Services
-	.AddRazorPages().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+    .AddRazorPages()
+    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
 // Add Kendo UI services to the services container
 builder.Services.AddKendo();
 
+// Add scoped services
 builder.Services.AddScoped<PositionRepository>();
+builder.Services.AddScoped<EmployeeRepository>();
 
-builder.Services.AddTransient<DatabaseHelper>(serviceProvider =>
-{
+builder.Services.AddScoped<DatabaseHelper>(serviceProvider => {
     return new DatabaseHelper(builder.Configuration);
 });
 
-// Add services to the container.
-
+// Build the application
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,9 +33,7 @@ if (!app.Environment.IsDevelopment())
 }
 */
 
-var connectionString = builder.Configuration.GetConnectionString("OrgMISConnection")!;
-//builder.Services.AddSingleton(new DatabaseHelper(connectionString));
-
+// Middleware
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -41,9 +41,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Endpoints
 app.MapGet("/", () => Results.Redirect("/Home"));
-
-
 app.MapRazorPages();
 
+// Start the application
 app.Run();

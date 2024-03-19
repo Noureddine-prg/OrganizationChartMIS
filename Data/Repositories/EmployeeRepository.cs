@@ -1,8 +1,8 @@
-﻿using OrganizationChartMIS.Data.DatabaseHelper;
-using OrganizationChartMIS.Data.Models;
+﻿using OrganizationChartMIS.Data.Models;
+using OrganizationChartMIS.Data.Context;
 using System.Data;
 
-namespace OrganizationChartMIS.Repositories
+namespace OrganizationChartMIS.Data.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -14,14 +14,15 @@ namespace OrganizationChartMIS.Repositories
         }
 
 
-        public List<Employee> GetAllEmployees() 
+        public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            string query = "SELECT EmployeeID, FirstName, LastName, Email, PositionID";
+            string query = "SELECT EmployeeID, FirstName, LastName, Email, PositionID FROM Employees";
+
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query);
-            
-            foreach (DataRow row in dataTable.Rows) 
+
+            foreach (DataRow row in dataTable.Rows)
             {
                 employees.Add(new Employee
                 {
@@ -30,23 +31,24 @@ namespace OrganizationChartMIS.Repositories
                     LastName = row["LastName"].ToString(),
                     Email = row["Email"].ToString(),
                     PositionID = row["PositionID"].ToString()
-                }); 
+                });
             }
 
             return employees;
         }
 
-        public Employee GetEmployee(string employeeID) 
+        public Employee GetEmployee(string employeeID)
         {
             Employee employee = null;
             string query = "SELECT EmployeeID, FirstName, LastName, Email, PositionID FROM Employees WHERE EmployeeID = @EmployeeID";
 
             var parameters = new Dictionary<string, object> { { "@EmployeeID", employeeID } };
-            
-            DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
-            DataRow  row = dataTable.Rows[0];
 
-            if (dataTable.Rows.Count > 0) {
+            DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
+
+            if (dataTable.Rows.Count > 0)
+            {
+                DataRow row = dataTable.Rows[0];
                 employee = new Employee
                 {
                     EmployeeID = row["EmployeeID"].ToString(),
@@ -60,7 +62,8 @@ namespace OrganizationChartMIS.Repositories
             return employee;
         }
 
-        public void AddEmployee(Employee employee) {
+        public void AddEmployee(Employee employee)
+        {
             string query = "INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, PositionID) " +
                 "VALUES (@EmployeeID, @FirstName, @LastName, @Email, @PositionID)";
 
@@ -76,7 +79,8 @@ namespace OrganizationChartMIS.Repositories
             _databaseHelper.ExecuteQuery(query, parameters);
         }
 
-        public void UpdateEmployee(Employee employee) {
+        public void UpdateEmployee(Employee employee)
+        {
             string query = @"UPDATE Employees 
             SET FirstName=@FirstName, 
             LastName=@LastName,
@@ -95,7 +99,8 @@ namespace OrganizationChartMIS.Repositories
             _databaseHelper.ExecuteUpdate(query, parameters);
         }
 
-        public void DeleteEmployee(string employeeID) { 
+        public void DeleteEmployee(string employeeID)
+        {
             //flag employee not present anymore dont remove from db 
         }
     }
