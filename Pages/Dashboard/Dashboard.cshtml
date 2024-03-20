@@ -11,9 +11,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>PositionID</th>
-                <th>Current Employee</th>
-                <th>Title</th>
+                <th>Position ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Hierarchy Level</th>
             </tr>
         </thead>
 
@@ -21,9 +22,10 @@
             @foreach(var position in @Model.Positions)
             {
                 <tr>
-                    <td>@position.PositionID</td>
-                    <td>@position.CurrentEmployee</td>
-                    <td>@position.Title</td>
+                    <td>@position.Poid</td>
+                    <td>@position.Name</td>
+                    <td>@position.Department</td>
+                    <td>@position.HierarchyLevel</td>
                 </tr>    
             }
         </tbody>
@@ -37,11 +39,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>EmployeeID</th>
-                <th>First Name</th>
-                <th>Last Name </th>
+                <th>Employee ID</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th>PositionID</th>
+                <th>Parent ID</th>
+                <th>Status</th>
+                <th>Position ID</th>
             </tr>
         </thead>
 
@@ -49,11 +52,12 @@
             @foreach(var employee in Model.Employees)
             {
                 <tr>
-                    <td>@employee.EmployeeID</td>
-                    <td>@employee.FirstName</td>
-                    <td>@employee.LastName</td>
+                    <td>@employee.Emid</td>
+                    <td>@employee.Name</td>
                     <td>@employee.Email</td>
-                    <td>@employee.PositionID</td>
+                    <td>@employee.ParentId</td>
+                    <td>@employee.Status</td>
+                    <td>@employee.PositionId</td>
                 </tr>
             }
         </tbody>

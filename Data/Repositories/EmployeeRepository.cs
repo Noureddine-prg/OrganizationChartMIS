@@ -17,7 +17,7 @@ namespace OrganizationChartMIS.Data.Repositories
         public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            string query = "SELECT EmployeeID, FirstName, LastName, Email, PositionID FROM Employees";
+            string query = "SELECT emid, email, name, parentId, status, positionId FROM employee";
 
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query);
@@ -26,23 +26,25 @@ namespace OrganizationChartMIS.Data.Repositories
             {
                 employees.Add(new Employee
                 {
-                    EmployeeID = row["EmployeeID"].ToString(),
-                    FirstName = row["FirstName"].ToString(),
-                    LastName = row["LastName"].ToString(),
-                    Email = row["Email"].ToString(),
-                    PositionID = row["PositionID"].ToString()
+                    Emid = row["emid"].ToString()!,
+                    Email = row["email"].ToString()!,
+                    Name = row["name"].ToString()!,
+                    ParentId = row.IsNull("parentId") ? null : row["parentId"].ToString(),
+                    Status = row["status"].ToString()!,
+                    PositionId = row["positionId"].ToString()!
                 });
             }
 
             return employees;
         }
 
-        public Employee GetEmployee(string employeeID)
+        public Employee GetEmployee(string emid)
         {
             Employee employee = null;
-            string query = "SELECT EmployeeID, FirstName, LastName, Email, PositionID FROM Employees WHERE EmployeeID = @EmployeeID";
+            string query = "SELECT emid, email, name, parentId, status, positionId FROM Employees WHERE emid = @Emid";
 
-            var parameters = new Dictionary<string, object> { { "@EmployeeID", employeeID } };
+
+            var parameters = new Dictionary<string, object> { { "@Emid", emid } };
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
 
@@ -51,11 +53,12 @@ namespace OrganizationChartMIS.Data.Repositories
                 DataRow row = dataTable.Rows[0];
                 employee = new Employee
                 {
-                    EmployeeID = row["EmployeeID"].ToString(),
-                    FirstName = row["FirstName"].ToString(),
-                    LastName = row["LastName"].ToString(),
-                    Email = row["Email"].ToString(),
-                    PositionID = row["PositionID"].ToString()
+                    Emid = row["emid"].ToString()!,
+                    Email = row["email"].ToString()!,
+                    Name = row["name"].ToString()!,
+                    ParentId = row.IsNull("parentId") ? null : row["parentId"].ToString()!,
+                    Status = row["status"].ToString()!,
+                    PositionId = row["positionId"].ToString()!
                 };
             }
 
@@ -64,44 +67,62 @@ namespace OrganizationChartMIS.Data.Repositories
 
         public void AddEmployee(Employee employee)
         {
-            string query = "INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, PositionID) " +
-                "VALUES (@EmployeeID, @FirstName, @LastName, @Email, @PositionID)";
+            string query = @"
+            INSERT INTO employee (emid, email, name, parentId, status, positionId) 
+            VALUES (@Emid, @Email, @Name, @ParentId, @Status, @PositionId)";
 
             var parameters = new Dictionary<string, object>
             {
-                { "@EmployeeID", employee.EmployeeID },
-                { "@FirstName", employee.FirstName},
-                { "@LastName", employee.LastName},
+                { "@Emid", employee.Emid },
                 { "@Email", employee.Email},
-                { "@PositionID", employee.PositionID }
-            };
-
-            _databaseHelper.ExecuteQuery(query, parameters);
-        }
-
-        public void UpdateEmployee(Employee employee)
-        {
-            string query = @"UPDATE Employees 
-            SET FirstName=@FirstName, 
-            LastName=@LastName,
-            Email=@Email,
-            PositionID=@PositionID
-            WHERE EmployeeID = @EmployeeID";
-
-            var parameters = new Dictionary<string, object> {
-                { "@EmployeeID", employee.EmployeeID },
-                { "@FirstName", employee.FirstName},
-                { "@LastName", employee.LastName},
-                { "@Email", employee.Email},
-                { "@PositionID", employee.PositionID }
+                { "@Name", employee.Name},
+                { "@ParentId", (object)employee.ParentId ?? DBNull.Value },
+                { "@Status", employee.Status },
+                { "@PositionId", employee.PositionId}
             };
 
             _databaseHelper.ExecuteUpdate(query, parameters);
         }
 
-        public void DeleteEmployee(string employeeID)
+        public void UpdateEmployee(Employee employee)
         {
-            //flag employee not present anymore dont remove from db 
+            string query = @"
+                UPDATE Employees 
+                SET 
+                email = @Email, 
+                name = @Name, 
+                parentId = @ParentId, 
+                status = @Status, 
+                positionId = @PositionId
+                WHERE emid = @Emid";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@Emid", employee.Emid },
+                { "@Email", employee.Email },
+                { "@Name", employee.Name },
+                { "@ParentId", (object)employee.ParentId ?? DBNull.Value }, 
+                { "@Status", employee.Status },
+                { "@PositionId", employee.PositionId }
+            };
+
+            _databaseHelper.ExecuteUpdate(query, parameters);
+        }
+
+        public void DeleteEmployee(string emid)
+        {
+            string query = @"
+                UPDATE employee
+                SET status = 'Inactive'
+                WHERE emid = @Emid
+            ";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@Emid", emid }
+            };
+
+            _databaseHelper.ExecuteUpdate(query, parameters);
         }
     }
 }

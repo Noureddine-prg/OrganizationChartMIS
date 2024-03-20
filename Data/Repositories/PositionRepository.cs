@@ -28,10 +28,10 @@ namespace OrganizationChartMIS.Data.Repositories
                 {
                     positions.Add(new Position
                     {
-                        Poid = row["poid"].ToString(),
-                        Name = row["name"].ToString(),
-                        Department = row["department"].ToString(),
-                        HierarchyLevel = row["hierarchyLevel"].ToString()
+                        Poid = row["poid"].ToString()!,
+                        Name = row["name"].ToString()!,
+                        Department = row["department"].ToString()!,
+                        HierarchyLevel = row["hierarchyLevel"].ToString()!
                     });
                 }
             }
@@ -47,11 +47,9 @@ namespace OrganizationChartMIS.Data.Repositories
         {
 
             Position position = null;
-            string query = "SELECT poid, name, department, hierarchyLevel FROM Positions WHERE poid = @Poid";
-            var parameters = new Dictionary<string, object>
-            {
-                { "@Poid", poid }
-            };
+            string query = "SELECT poid, name, department, hierarchyLevel FROM position WHERE poid = @Poid";
+            var parameters = new Dictionary<string, object> { { "@Poid", poid } };
+ 
 
             DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
 
@@ -74,7 +72,7 @@ namespace OrganizationChartMIS.Data.Repositories
         public void AddPosition(Position position)
         {
 
-            string query = "INSERT INTO Positions (poid, name, department, hierarchyLevel) VALUES (@Poid, @Name, @Department, @HierarchyLevel)";
+            string query = "INSERT INTO position (poid, name, department, hierarchyLevel) VALUES (@Poid, @Name, @Department, @HierarchyLevel)";
             var parameters = new Dictionary<string, object>
             {
                 { "@Poid", position.Poid},
@@ -97,7 +95,7 @@ namespace OrganizationChartMIS.Data.Repositories
         public void UpdatePosition(Position position)
         {
 
-            string query = "UPDATE Positions SET name = @Name, department = @Department, hierarchyLevel = @HierarchyLevel WHERE poid = @Poid";
+            string query = "UPDATE position SET name = @Name, department = @Department, hierarchyLevel = @HierarchyLevel WHERE poid = @Poid";
             var parameters = new Dictionary<string, object>
             {
                 { "@Poid", position.Poid },
@@ -117,14 +115,14 @@ namespace OrganizationChartMIS.Data.Repositories
 
         }
 
-        public void DeletePosition(string positionId)
+        public void DeletePosition(string poid)
         {
 
-            string query = "DELETE FROM Positions WHERE PositionID = @PositionID";
+            string query = "DELETE FROM position WHERE PositionID = @Poid";
 
             var parameters = new Dictionary<string, object>
             {
-                { "@PositionID", positionId}
+                { "@Poid", poid}
             };
 
             try

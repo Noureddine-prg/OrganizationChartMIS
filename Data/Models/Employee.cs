@@ -3,11 +3,13 @@
 
     public class Employee
     {
-        public string EmployeeID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Emid { get; set; }
         public string Email { get; set; }
-        public string PositionID { get; set; }
+        public string Name { get; set; }
+        public string ParentId { get; set; }
+        public string Status { get; set; }
+        public string PositionId { get; set; }
+
     }
 
 }
