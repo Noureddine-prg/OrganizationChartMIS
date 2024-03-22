@@ -1,13 +1,15 @@
 ﻿@page
 @model OrganizationChartMIS.Pages.Dashboard.DashboardModel
-@{
+@section Scripts {
+    <script src="~/js/ModalControl.js" asp-append-version="true"></script>
 }
 
+<partial name="_AddEmployeeModal" />
 <h2>Dashboard</h2>
 
 <div >
     <h3>Positions</h3>
-
+    <button class="btn btn-outline-dark" onclick="showModal('addPositionModal')">Add Position</button>
     <table class="table">
         <thead>
             <tr>
@@ -15,17 +17,22 @@
                 <th>Name</th>
                 <th>Department</th>
                 <th>Hierarchy Level</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach(var position in @Model.Positions)
+            @foreach(var position in Model.Positions)
             {
                 <tr>
                     <td>@position.Poid</td>
                     <td>@position.Name</td>
                     <td>@position.Department</td>
                     <td>@position.HierarchyLevel</td>
+                    <td>
+                        <button class="btn btn-outline-dark">Update</button>
+                        <button class="btn btn-outline-dark">Delete</button>
+                    </td>
                 </tr>    
             }
         </tbody>
@@ -35,7 +42,7 @@
 
 <div >
     <h3>Employees</h3>
-
+    <button class="btn btn-outline-dark" onclick="showModal('addEmployeeModal')">Add Employee</button>
     <table class="table">
         <thead>
             <tr>
@@ -45,6 +52,7 @@
                 <th>Parent ID</th>
                 <th>Status</th>
                 <th>Position ID</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -58,6 +66,10 @@
                     <td>@employee.ParentId</td>
                     <td>@employee.Status</td>
                     <td>@employee.PositionId</td>
+                    <td>
+                        <button class="btn btn-outline-dark">Update</button>
+                        <button class="btn btn-outline-dark">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>

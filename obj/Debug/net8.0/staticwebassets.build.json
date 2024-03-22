@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Cuz5pFWKSU6forI3FYF1xl+jkb9y2JGEvZfJnQ+qqaM=",
+  "Hash": "DbHzYXKbQ23Bx1/v5PD2FkbbG79mUCv+M/KZOjaOjjg=",
   "Source": "OrganizationChartMIS",
   "BasePath": "_content/OrganizationChartMIS",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\noure\\OneDrive\\Desktop\\NET Programming\\OrganizationChartMIS\\wwwroot\\js\\ModalControl.js",
+      "SourceId": "OrganizationChartMIS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\noure\\OneDrive\\Desktop\\NET Programming\\OrganizationChartMIS\\wwwroot\\",
+      "BasePath": "_content/OrganizationChartMIS",
+      "RelativePath": "js/ModalControl.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\ModalControl.js"
     },
     {
       "Identity": "C:\\Users\\noure\\OneDrive\\Desktop\\NET Programming\\OrganizationChartMIS\\wwwroot\\js\\site.js",

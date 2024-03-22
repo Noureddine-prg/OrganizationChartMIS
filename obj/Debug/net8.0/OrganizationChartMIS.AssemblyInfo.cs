@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OrganizationChartMIS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+276c4af5fbc71124fa5862f8904f2fccc39382cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5cddd33ce65d923f07dd84496d822b5f53efac96")]
 [assembly: System.Reflection.AssemblyProductAttribute("OrganizationChartMIS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OrganizationChartMIS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

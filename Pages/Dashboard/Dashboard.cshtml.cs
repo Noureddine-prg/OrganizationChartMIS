@@ -1,6 +1,7 @@
 using OrganizationChartMIS.Data.Repositories;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrganizationChartMIS.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace OrganizationChartMIS.Pages.Dashboard
 {
@@ -17,6 +18,27 @@ namespace OrganizationChartMIS.Pages.Dashboard
         {
             _positionRepository = positionRepository;
             _employeeRepository = employeeRepository;
+        }
+
+        public JsonResult OnGetDepartments() 
+        {
+            var departments = _positionRepository.GetAllDepartments();
+
+            return new JsonResult(departments); 
+        }
+
+        public JsonResult OnGetPositions(string department) 
+        {
+            var positions = _positionRepository.GetPositionsByDepartment(department);
+
+            return new JsonResult(positions);
+        }
+
+        public JsonResult OnGetSupervisors(string department) 
+        {
+            var supervisors = _positionRepository.GetAllSupervisorsByDepartment(department);
+
+            return new JsonResult(supervisors);
         }
 
         public void OnGet()

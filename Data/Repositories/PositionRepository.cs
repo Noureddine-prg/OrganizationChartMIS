@@ -14,6 +14,72 @@ namespace OrganizationChartMIS.Data.Repositories
             _databaseHelper = new DatabaseHelper(configuration);
         }
 
+        public List<string> GetAllDepartments()
+        {
+            var departments = new List<string>();
+            string query = "SELECT DISTINCT Department FROM position ORDER BY Department";
+            DataTable dataTable = _databaseHelper.ExecuteQuery(query);
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                departments.Add(row["Department"].ToString()!);
+            }
+
+            return departments;
+        }
+
+        public List<Position> GetPositionsByDepartment(string selectedDepartment)
+        {
+            string query = "SELECT poid, name, department, hierarchyLevel FROM position WHERE Department = @Department ORDER BY name";
+            var parameters = new Dictionary<string, object> { { "@Department", selectedDepartment } };
+            DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
+            var positionsByDepartments = new List<Position>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                positionsByDepartments.Add(new Position
+                {
+                    Poid = row["poid"].ToString()!,
+                    Name = row["name"].ToString()!,
+                    Department = row["department"].ToString()!,
+                    HierarchyLevel = row["hierarchyLevel"].ToString()!
+                });
+            }
+
+            return positionsByDepartments;
+        }
+
+        public List<Employee> GetAllSupervisorsByDepartment(string selectedDepartment)
+        {
+            string query = @"
+            SELECT e.emid, e.email, e.name, e.parentId, e.status, e.positionId 
+            FROM employee e
+            JOIN position p ON e.positionId = p.poid
+            WHERE p.Department = @Department 
+            AND p.hierarchyLevel IN ('Manager', 'DepartmentLead', 'AssistantManager', 'Supervisor')
+            ORDER BY e.name;";
+
+            var parameters = new Dictionary<string, object> { { "@Department", selectedDepartment } };
+            DataTable dataTable = _databaseHelper.ExecuteQuery(query, parameters);
+            var supervisorsByDepartment = new List<Employee>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                supervisorsByDepartment.Add(new Employee
+                {
+                    Emid = row["emid"].ToString()!,
+                    Email = row["email"].ToString()!,
+                    Name = row["name"].ToString()!,
+                    ParentId = row.IsNull("parentId") ? null : row["parentId"].ToString(),
+                    Status = row["status"].ToString()!,
+                    PositionId = row["positionId"].ToString()!
+                });
+            }
+
+            return supervisorsByDepartment;
+        }
+
+
         public List<Position> GetAllPositions()
         {
 
