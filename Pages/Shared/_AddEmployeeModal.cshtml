@@ -11,44 +11,43 @@
 
             </div>
 
-            <form method="post" asp-page-handler="AddNewEmployee">
+            <form id="createEmployeeForm" method="post" asp-page-handler="AddNewEmployee">
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="department">Department</label>
+                        <label  for="department">Department</label>
                         <select class="form-control" id="department" name="Department">
                             <option>Select a Department</option>
-
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="enployeeName">Full Name</label>
-                        <input type="text" class="form-control" id="employeeName" name="Name" required />
+                        <label>Full Name</label>
+                        <input for="fullName"  type="text" class="form-control" id="employeeName" name="Name" required />
                     </div>
 
                     <div class="form-group">
-                        <label for="employeeEmail">Company Email</label>
-                        <input type="email" class="form-control" id="employeeEmail" name="Email" required />
+                        <label>Company Email</label>
+                        <input for="email" type="email" class="form-control" id="employeeEmail" name="Email" required />
                     </div>
 
                     <div class="form-group">
-                        <label for="employeePosition">Company Position</label>
-                        <select class="form-control" id="position" name="Position" required>
+                        <label>Company Position</label>
+                        <select class ="form-control" id="position" name="PositionName" required>
                             <option>Select Position</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="employeeParent">Supervisor</label>
-                        <select class="form-control" id="supervisor" name="Supervisor" required>
+                        <label>Supervisor</label>
+                        <select class="form-control" id="supervisor" name="SupervisorName">
                             <option>Select Supervisor</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="employeeStatus">Status</label>
-                        <select class="form-control" id="status" required>
+                        <label>Status</label>
+                        <select for="status" class="form-control" id="status" name="Status" required>
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>
@@ -58,8 +57,8 @@
             </form>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onlick="hideModal">Close</button>
-                <button type="button" class="btn btn-primary">Create New Employee</button>
+                <button type="button" class="btn btn-secondary" onclick="hideModal('addEmployeeModal')">Close</button>
+                <button onclick="createEmployee()" type="button" class="btn btn-primary">Create New Employee</button>
             </div>
 
         </div>

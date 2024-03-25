@@ -33,7 +33,7 @@ CREATE TABLE employee (
     emid VARCHAR(50) PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     name VARCHAR(255),
-    parentId VARCHAR(50),
+    parentId VARCHAR(50) NULL,
     status VARCHAR(20),
     positionId VARCHAR(50),
     FOREIGN KEY (status) REFERENCES job_status(status_name),

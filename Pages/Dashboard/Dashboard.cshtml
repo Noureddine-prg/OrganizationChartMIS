@@ -4,7 +4,8 @@
     <script src="~/js/ModalControl.js" asp-append-version="true"></script>
 }
 
-<partial name="_AddEmployeeModal" />
+<partial name="_AddEmployeeModal" model="Model.NewEmployee" />
+<partial name="_AddPositionModal" model="Model.NewPosition" />
 <h2>Dashboard</h2>
 
 <div >
@@ -22,19 +23,21 @@
         </thead>
 
         <tbody>
-            @foreach(var position in Model.Positions)
-            {
-                <tr>
-                    <td>@position.Poid</td>
-                    <td>@position.Name</td>
-                    <td>@position.Department</td>
-                    <td>@position.HierarchyLevel</td>
-                    <td>
-                        <button class="btn btn-outline-dark">Update</button>
-                        <button class="btn btn-outline-dark">Delete</button>
-                    </td>
-                </tr>    
-            }
+
+                @foreach (var position in Model.Positions)
+                {
+                    <tr>
+                        <td>@position.Poid</td>
+                        <td>@position.Name</td>
+                        <td>@position.Department</td>
+                        <td>@position.HierarchyLevel</td>
+                        <td>
+                            <button class="btn btn-outline-dark">Update</button>
+                            <button class="btn btn-outline-dark">Delete</button>
+                        </td>
+                    </tr>
+                }
+
         </tbody>
  
     </table>
@@ -42,7 +45,7 @@
 
 <div >
     <h3>Employees</h3>
-    <button class="btn btn-outline-dark" onclick="showModal('addEmployeeModal')">Add Employee</button>
+    <button class="btn btn-outline-dark" id="openModalButton">Add Employee</button>
     <table class="table">
         <thead>
             <tr>

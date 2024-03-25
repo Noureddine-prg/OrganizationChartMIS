@@ -69,5 +69,31 @@ namespace OrganizationChartMIS.Data.Context
                 }
             }
         }
+
+        public object ExecuteScalar(string query, Dictionary<string, object> parameters = null)
+        {
+            using (var connection = EstablishConnection())
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                
+                    if (parameters != null)
+                    {
+                        foreach (var pair in parameters)
+                        {
+                            command.Parameters.AddWithValue(pair.Key, pair.Value ?? DBNull.Value);
+                        }
+                    }
+
+                    var result = command.ExecuteScalar();
+
+                    return result;
+                }
+            }
+        }
+
+
+
+
     }
 }
