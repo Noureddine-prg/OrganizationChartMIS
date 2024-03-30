@@ -1,21 +1,24 @@
-using OrganizationChartMIS.Data.Repositories;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrganizationChartMIS.Data.Models;
-using OrganizationChartMIS.Data.Factories;
 using Microsoft.AspNetCore.Mvc;
+
+using OrganizationChartMIS.Data.Service.Department;
 
 namespace OrganizationChartMIS.Pages.Dashboard
 {
     public class DashboardModel : PageModel
     {
-        private readonly PositionRepository _positionRepository;
-        private readonly EmployeeRepository _employeeRepository;
-        private readonly EmployeeFactory _employeeFactory;
+        private readonly IEmployeeService _employeeService;
+        private readonly IPositionService _positionService;
+        private readonly IDepartmentService _departmentService;
+        private readonly ITeamService _teamService;
 
-        public IList<Position> Positions { get; set; }
         public IList<Employee> Employees { get; set; }
-        public Employee NewEmployee { get; set; } = new Employee();
-        public Position NewPosition { get; set; } = new Position();
+        public IList<Position> Positions { get; set; }
+        public IList<Department> Departments { get; set; }
+        public IList<Team> Teams { get; set; }
+
+
 
         [BindProperty]
         public string Name { get; set; }
@@ -33,22 +36,42 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public string Status {  get; set; }
 
         // Dependency injection
-        public DashboardModel(PositionRepository positionRepository, EmployeeRepository employeeRepository)
+        public DashboardModel(
+            IEmployeeService employeeService,
+            IPositionService positionService,
+            IDepartmentService departmentService,
+            ITeamService teamService)
         {
-            _positionRepository = positionRepository ?? throw new ArgumentNullException(nameof(positionRepository));
-            _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
-           
+            _employeeService = employeeService;
+            _positionService = positionService;
+            _departmentService = departmentService;
+            _teamService = teamService;
+        }
 
-            Positions = new List<Position>();
-            Employees = new List<Employee>();
-            _employeeFactory = new EmployeeFactory(_employeeRepository);
+        public void OnGet()
+        {
+            Console.WriteLine("OnGet - Fetching positions and employees");
+
+            Positions = _positionRepository.GetAllPositions();
+            Employees = _employeeRepository.GetAllEmployees();
+            Departments = _departmentRepository.GetAllDepartments();
+            Teams = _teamRepository.GetAllTeams();
+
+            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions and {Employees.Count} employees");
         }
 
         public JsonResult OnGetDepartments() 
         {
-            var departments = _positionRepository.GetAllDepartments();
+            var departments = _departmentRepository.GetAllDepartments();
 
             return new JsonResult(departments); 
+        }
+
+        public JsonResult OnGetTeams()
+        {
+            var teams = _teamRepository.GetAllTeams();
+
+            return new JsonResult(teams);
         }
 
         public JsonResult OnGetPositions(string department) 
@@ -83,16 +106,7 @@ namespace OrganizationChartMIS.Pages.Dashboard
             return RedirectToPage("./Dashboard");
         }
 
-        public void OnGet()
-        {
-            Console.WriteLine("OnGet - Fetching positions and employees");
 
-            Positions = _positionRepository.GetAllPositions() ?? new List<Position>();
-
-            Employees = _employeeRepository.GetAllEmployees() ?? new List<Employee>();
-
-            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions and {Employees.Count} employees");
-        }
 
     }
 }

@@ -1,5 +1,4 @@
-﻿-- Enumeration tables for job status and hierarchy level
-CREATE TABLE job_status (
+﻿CREATE TABLE job_status (
     status_name VARCHAR(20) PRIMARY KEY
 );
 
@@ -7,36 +6,40 @@ INSERT INTO job_status (status_name) VALUES
 ('Active'),
 ('Inactive');
 
-CREATE TABLE hierarchy_level (
-    level_name VARCHAR(20) PRIMARY KEY
+CREATE TABLE department (
+    doid VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    reportsTo VARCHAR(50) NULL,
+    FOREIGN KEY (reportsTo) REFERENCES department(doid)
 );
 
-INSERT INTO hierarchy_level (level_name) VALUES
-('CEO'),
-('DepartmentLead'),
-('Manager'),
-('AssistantManager'),
-('Supervisor'),
-('Employee');
+CREATE TABLE team (
+    teamid VARCHAR(50) PRIMARY KEY,
+    teamName VARCHAR(255) NOT NULL UNIQUE,
+    departmentId VARCHAR(50) NOT NULL,
+    FOREIGN KEY (departmentId) REFERENCES department(doid)
+);
 
--- Position Table
 CREATE TABLE position (
     poid VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(255) UNIQUE,
-    department VARCHAR(255),
-    hierarchyLevel VARCHAR(20),
-    FOREIGN KEY (hierarchyLevel) REFERENCES hierarchy_level(level_name)
+    name VARCHAR(255) NOT NULL,
+    level INT NOT NULL,
+    reportsTo VARCHAR(50) NULL, 
+    departmentId VARCHAR(50) NOT NULL, 
+    teamId VARCHAR(50) NULL, 
+    FOREIGN KEY (reportsTo) REFERENCES position(poid),
+    FOREIGN KEY (departmentId) REFERENCES department(doid),
+    FOREIGN KEY (teamId) REFERENCES team(teamid)
 );
 
--- Employee Table
 CREATE TABLE employee (
     emid VARCHAR(50) PRIMARY KEY,
-    email VARCHAR(255) UNIQUE,
-    name VARCHAR(255),
-    parentId VARCHAR(50) NULL,
-    status VARCHAR(20),
-    positionId VARCHAR(50),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    reportsTo VARCHAR(50) NULL,
+    status VARCHAR(20) NOT NULL,
+    positionId VARCHAR(50) NOT NULL,
     FOREIGN KEY (status) REFERENCES job_status(status_name),
     FOREIGN KEY (positionId) REFERENCES position(poid),
-    FOREIGN KEY (parentId) REFERENCES employee(emid) 
+    FOREIGN KEY (reportsTo) REFERENCES employee(emid)
 );

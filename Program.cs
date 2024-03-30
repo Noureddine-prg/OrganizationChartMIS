@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Mvc.Routing;
 using OrganizationChartMIS.Data.Context;
-using OrganizationChartMIS.Data.Repositories;
+
+using OrganizationChartMIS.Data.Repositories.Department;
+using OrganizationChartMIS.Data.Repositories.Employee;
+using OrganizationChartMIS.Data.Repositories.Position;
+using OrganizationChartMIS.Data.Repositories.Team;
+using OrganizationChartMIS.Data.Service.Department;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,15 @@ builder.Services.AddKendo();
 // Add scoped services
 builder.Services.AddScoped<PositionRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<DepartmentRepository>();
+builder.Services.AddScoped<TeamRepository>();
+
+
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IPositionService, PositionService>();
+
 
 builder.Services.AddScoped<DatabaseHelper>(serviceProvider => {
     return new DatabaseHelper(builder.Configuration);
