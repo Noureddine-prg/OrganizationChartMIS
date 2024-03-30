@@ -5,6 +5,9 @@ using OrganizationChartMIS.Data.Repositories.Employee;
 using OrganizationChartMIS.Data.Repositories.Position;
 using OrganizationChartMIS.Data.Repositories.Team;
 using OrganizationChartMIS.Data.Service.Department;
+using OrganizationChartMIS.Data.Service.Team;
+using OrganizationChartMIS.Data.Service.Employee;
+using OrganizationChartMIS.Data.Service.Position;
 
 var builder = WebApplication.CreateBuilder(args);
 

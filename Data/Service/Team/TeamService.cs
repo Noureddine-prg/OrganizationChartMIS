@@ -3,7 +3,7 @@ using TeamObject = OrganizationChartMIS.Data.Models.Team;
 
 namespace OrganizationChartMIS.Data.Service.Team
 {
-    public class TeamService
+    public class TeamService : ITeamService
     {
         private readonly TeamRepository _teamRepository;
 
@@ -106,7 +106,7 @@ namespace OrganizationChartMIS.Data.Service.Team
             }
         }
 
-        private string GenerateUniqueTeamId()
+        public string GenerateUniqueTeamId()
         {
             bool exists;
             string teamId;
