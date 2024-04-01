@@ -3,90 +3,75 @@ using OrganizationChartMIS.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 using OrganizationChartMIS.Data.Service.Department;
+using OrganizationChartMIS.Data.Service.Employee;
+using OrganizationChartMIS.Data.Service.Position;
+using OrganizationChartMIS.Data.Service.Team;
 
 namespace OrganizationChartMIS.Pages.Dashboard
 {
     public class DashboardModel : PageModel
     {
+        // Service interfaces
         private readonly IEmployeeService _employeeService;
         private readonly IPositionService _positionService;
         private readonly IDepartmentService _departmentService;
         private readonly ITeamService _teamService;
 
-        public IList<Employee> Employees { get; set; }
-        public IList<Position> Positions { get; set; }
-        public IList<Department> Departments { get; set; }
-        public IList<Team> Teams { get; set; }
+        // Data to be displayed on the page
+        public IList<Employee> Employees { get; private set; }
+        public IList<Position> Positions { get; private set; }
+        public IList<Department> Departments { get; private set; }
+        public IList<Team> Teams { get; private set; }
 
-
-
-        [BindProperty]
-        public string Name { get; set; }
-
-        [BindProperty]
-        public string Email { get; set; }
-
-        [BindProperty]
-        public string SupervisorName { get; set; }
-
-        [BindProperty]
-        public string Position {  get; set; }
-
-        [BindProperty]
-        public string Status {  get; set; }
-
-        // Dependency injection
+        // Constructor with dependency injection
         public DashboardModel(
             IEmployeeService employeeService,
             IPositionService positionService,
             IDepartmentService departmentService,
             ITeamService teamService)
         {
-            _employeeService = employeeService;
-            _positionService = positionService;
-            _departmentService = departmentService;
-            _teamService = teamService;
+            _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
+            _positionService = positionService ?? throw new ArgumentNullException(nameof(positionService));
+            _departmentService = departmentService ?? throw new ArgumentNullException(nameof(departmentService));
+            _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
         }
 
         public void OnGet()
         {
-            Console.WriteLine("OnGet - Fetching positions and employees");
+            Console.WriteLine("OnGet - Fetching positions, employees, departments, teams");
 
-            Positions = _positionRepository.GetAllPositions();
-            Employees = _employeeRepository.GetAllEmployees();
-            Departments = _departmentRepository.GetAllDepartments();
-            Teams = _teamRepository.GetAllTeams();
+            Employees = _employeeService.GetAllEmployees();
+            Positions = _positionService.GetAllPositions();
+            Departments = _departmentService.GetAllDepartments();
+            Teams = _teamService.GetAllTeams();
 
-            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions and {Employees.Count} employees");
+            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions, {Employees.Count} employees, {Departments.Count} departments, {Teams.Count}");
         }
 
-        public JsonResult OnGetDepartments() 
+        public JsonResult OnGetDepartments()
         {
-            var departments = _departmentRepository.GetAllDepartments();
-
-            return new JsonResult(departments); 
+            var departments = _departmentService.GetAllDepartments();
+            return new JsonResult(departments);
         }
 
         public JsonResult OnGetTeams()
         {
-            var teams = _teamRepository.GetAllTeams();
-
+            var teams = _teamService.GetAllTeams();
             return new JsonResult(teams);
         }
 
-        public JsonResult OnGetPositions(string department) 
+        public JsonResult OnGetPositions(string department)
         {
-            var positions = _positionRepository.GetPositionsByDepartment(department);
-
+            var positions = _positionService.GetPositionsByDepartment(department);
             return new JsonResult(positions);
         }
 
-        public JsonResult OnGetSupervisors(string department) 
+        public JsonResult OnGetSupervisors(string department)
         {
-            var supervisors = _employeeRepository.GetAllSupervisorsByDepartment(department);
-
+            var supervisors = _employeeService.GetAllSupervisorsByDepartment(department);
             return new JsonResult(supervisors);
         }
+
 
         public IActionResult OnPostAddNewEmployee(string name, string email, string positionName, string supervisorName, string status)
         {

@@ -25,7 +25,7 @@ CREATE TABLE position (
     name VARCHAR(255) NOT NULL,
     level INT NOT NULL,
     reportsTo VARCHAR(50) NULL, 
-    departmentId VARCHAR(50) NOT NULL, 
+    departmentId VARCHAR(50) NULL, 
     teamId VARCHAR(50) NULL, 
     FOREIGN KEY (reportsTo) REFERENCES position(poid),
     FOREIGN KEY (departmentId) REFERENCES department(doid),
