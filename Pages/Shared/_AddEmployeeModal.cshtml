@@ -1,68 +1,47 @@
 ﻿@using OrganizationChartMIS.Data.Models
 
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-
         <div class="modal-content">
-
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Create New Employee</h5>
-
+                <h5 class="modal-title" id="addEmployeeModalLabel">Create New Employee</h5>
             </div>
-
-            <form id="createEmployeeForm" method="post" asp-page-handler="AddNewEmployee">
-                <div class="modal-body">
-
+            <div class="modal-body">
+                <form id="createEmployeeForm" method="post">
                     <div class="form-group">
-                        <label  for="department">Department</label>
-                        <select class="form-control" id="department" name="Department">
+                        <label for="department">Department</label>
+                        <select class="form-control " id="department" name="Department">
                             <option>Select a Department</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label>Full Name</label>
-                        <input for="fullName"  type="text" class="form-control" id="employeeName" name="Name" required />
+                        <label >Full Name</label>
+                        <input for="Name" class="form-control" required />
                     </div>
-
                     <div class="form-group">
-                        <label>Company Email</label>
-                        <input for="email" type="email" class="form-control" id="employeeEmail" name="Email" required />
+                        <label >Company Email</label>
+                        <input for="Email" class="form-control" required />
                     </div>
-
                     <div class="form-group">
-                        <label>Company Position</label>
-                        <select class ="form-control" id="position" name="PositionName" required>
-                            <option>Select Position</option>
+                        <label ="PositionId">Company Position</label>
+                        <select for="PositionId" class="form-control" required>
+                            <option value="">Select Position</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Supervisor</label>
-                        <select class="form-control" id="supervisor" name="SupervisorName">
-                            <option>Select Supervisor</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select for="status" class="form-control" id="status" name="Status" required>
+                        <label >Status</label>
+                        <select for="Status" class="form-control" required>
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>
                     </div>
-
-                </div>
-            </form>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="hideModal('addEmployeeModal')">Close</button>
-                <button onclick="createEmployee()" type="button" class="btn btn-primary">Create New Employee</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('addEmployeeModal')">Close</button>
+                        <button type="submit" class="btn btn-primary">Create New Employee</button>
+                    </div>
+                </form>
             </div>
-
         </div>
-
     </div>
-
 </div>

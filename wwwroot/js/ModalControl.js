@@ -1,13 +1,15 @@
 $(document).ready(function () {
+    console.log("Document ready, fetching departments...");
     fetchDepartments();
+
     $('#openModalButton').click(function () {
         $('#addEmployeeModal').modal('show');
     });
 
-    $('.department-select').change(function () {
+    $('#department').change(function () {
         var departmentId = $(this).val();
+        console.log("Department selected:", departmentId);
         fetchPositions(departmentId);
-        fetchSupervisors(departmentId);
     });
 });
 
@@ -20,16 +22,21 @@ function hideModal(modalId) {
     $(`#${modalId}`).modal('hide');
 }
 
+
 function fetchDepartments() {
     $.ajax({
         type: "GET",
         url: "?handler=Departments",
-        contentType: "application/json",
         success: function (data) {
-            $('.department-select').empty().append('<option selected="true" disabled="disabled">Select a Department</option>');
+            console.log(data)
+            var departmentSelect = $('#department');
+            departmentSelect.empty().append('<option selected="true" disabled="disabled">Select a Department</option>');
             $.each(data, function (key, entry) {
-                $('.department-select').append($('<option></option>').attr('value', entry.doid).text(entry.name));
+                departmentSelect.append($('<option></option>').attr('value', entry.doid).text(entry.name));
             });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching departments:", status, error);
         }
     });
 }
@@ -66,16 +73,13 @@ function fetchSupervisors(departmentId) {
 
 function createEmployee() {
     let formData = $('#createEmployeeForm').serializeArray();
-    formData.push({ name: "Status", value: $('#status').val() });
 
     console.log(formData);
-
-    let formUrlEncodedData = formData.map(obj => `${encodeURIComponent(obj.name)}=${encodeURIComponent(obj.value)}`).join('&');
 
     $.ajax({
         type: "POST",
         url: "?handler=AddNewEmployee",
-        data: formUrlEncodedData,
+        data: formData,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         success: function (response) {
             console.log("Employee Created!", response);
@@ -87,3 +91,4 @@ function createEmployee() {
         }
     });
 }
+

@@ -201,6 +201,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
             }
         }
 
+
         public bool CheckPoidExists(string poid)
         {
             string query = "SELECT COUNT(*) FROM position WHERE Poid = @Poid";

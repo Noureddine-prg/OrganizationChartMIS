@@ -113,6 +113,19 @@ namespace OrganizationChartMIS.Data.Service.Position
             }
         }
 
+        public List<PositionObject> GetPositionsByDepartment(string departmentId)
+        {
+            try
+            {
+                return _positionRepository.GetPositionsByDepartment(departmentId).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetPositionsByDepartment - Exception: {ex.Message}");
+                return new List<PositionObject>();
+            }
+        }
+
         public string GenerateUniquePoid()
         {
             string poid;

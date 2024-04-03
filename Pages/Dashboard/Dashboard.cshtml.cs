@@ -23,6 +23,42 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public IList<Department> Departments { get; private set; }
         public IList<Team> Teams { get; private set; }
 
+        [BindProperty]
+        public Employee NewEmployee { get; set; } = new Employee();
+        
+        [BindProperty]
+        public Position NewPosition { get; set; } = new Position();
+
+        [BindProperty]
+        public string Name { get; set; }
+
+        [BindProperty]
+        public string Email { get; set; }
+
+        [BindProperty]
+        public string SupervisorName { get; set; }
+
+        [BindProperty]
+        public string PositionId { get; set; }
+
+        [BindProperty]
+        public string Status { get; set; }
+
+        [BindProperty]
+        public string DepartmentId { get; set; }
+
+        [BindProperty]
+        public string TeamId { get; set; }
+
+        [BindProperty]
+        public string PositionLevel { get; set; }
+
+        [BindProperty]
+        public string DepartmentName { get; set; }
+
+        [BindProperty]
+        public string TeamName { get; set; }
+
         // Constructor with dependency injection
         public DashboardModel(
             IEmployeeService employeeService,
@@ -45,13 +81,16 @@ namespace OrganizationChartMIS.Pages.Dashboard
             Departments = _departmentService.GetAllDepartments();
             Teams = _teamService.GetAllTeams();
 
-            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions, {Employees.Count} employees, {Departments.Count} departments, {Teams.Count}");
+            Console.WriteLine($"OnGet - Fetched {Positions.Count} positions, {Employees.Count} employees, {Departments.Count} departments, {Teams.Count} Teams");
         }
 
         public JsonResult OnGetDepartments()
         {
             var departments = _departmentService.GetAllDepartments();
+            Console.WriteLine("Got departments:" + departments);
+
             return new JsonResult(departments);
+
         }
 
         public JsonResult OnGetTeams()
@@ -66,30 +105,24 @@ namespace OrganizationChartMIS.Pages.Dashboard
             return new JsonResult(positions);
         }
 
-        public JsonResult OnGetSupervisors(string department)
-        {
-            var supervisors = _employeeService.GetAllSupervisorsByDepartment(department);
-            return new JsonResult(supervisors);
-        }
-
-
         public IActionResult OnPostAddNewEmployee(string name, string email, string positionName, string supervisorName, string status)
         {
-            Console.WriteLine($"OnPostAddNewEmployeeAsync - Information Name: {name}, Email: {email}, PositionName: {positionName}, SupervisorName: {supervisorName}, Status: {status}");
+            Console.WriteLine($"OnPostAddNewEmployeeAsync - Information: Name: {name}, Email: {email}, PositionName: {positionName}, SupervisorName: {supervisorName}, Status: {status}");
 
             try
             {
-                Console.WriteLine($"OnPostAddNewEmployee - SupervisorEMID: {supervisorName}, POID: {positionName}");
-                var employee = _employeeFactory.CreateAndSaveEmployee(email, name, supervisorName, status, positionName);
+                var employee = _employeeService.CreateAndSaveEmployee(email, name, supervisorName, status, positionName);
                 Console.WriteLine($"OnPostAddNewEmployee - Employee Created: {employee.Emid}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"OnPostAddNewEmployee - Exception: {ex.Message}");
+                return Page(); 
             }
 
             return RedirectToPage("./Dashboard");
         }
+
 
 
 

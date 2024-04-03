@@ -4,11 +4,13 @@
     <script src="~/js/ModalControl.js" asp-append-version="true"></script>
 }
 
-<partial name="_AddEmployeeModal" model="Model.NewEmployee" />
-<partial name="_AddPositionModal" model="Model.NewPosition" />
+
+<partial name="_AddEmployeeModal" model="@Model.NewEmployee" />
+
+
 <h2>Dashboard</h2>
 
-<div >
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
     <h3>Positions</h3>
     <button class="btn btn-outline-dark" onclick="showModal('addPositionModal')">Add Position</button>
     <table class="table">
@@ -17,33 +19,32 @@
                 <th>Position ID</th>
                 <th>Name</th>
                 <th>Department</th>
-                <th>Hierarchy Level</th>
+                <th>Level</th>
+                <th>Reports To</th>
                 <th>Actions</th>
             </tr>
         </thead>
-
         <tbody>
-
-                @foreach (var position in Model.Positions)
-                {
-                    <tr>
-                        <td>@position.Poid</td>
-                        <td>@position.Name</td>
-                        <td>@position.Department</td>
-                        <td>@position.HierarchyLevel</td>
-                        <td>
-                            <button class="btn btn-outline-dark">Update</button>
-                            <button class="btn btn-outline-dark">Delete</button>
-                        </td>
-                    </tr>
-                }
-
+            @foreach (var position in Model.Positions)
+            {
+                <tr>
+                    <td>@position.Poid</td>
+                    <td>@position.Name</td>
+                    <td>@position.DepartmentId</td> 
+                    <td>@position.Level</td>
+                    <td>@position.ReportsTo</td> 
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editPosition('@position.Poid')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deletePosition('@position.Poid')">Delete</button>
+                    </td>
+                </tr>
+            }
         </tbody>
- 
     </table>
 </div>
 
-<div >
+
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
     <h3>Employees</h3>
     <button class="btn btn-outline-dark" id="openModalButton">Add Employee</button>
     <table class="table">
@@ -52,32 +53,87 @@
                 <th>Employee ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Parent ID</th>
+                <th>Position</th> 
+                <th>Supervisor</th> 
                 <th>Status</th>
-                <th>Position ID</th>
                 <th>Actions</th>
             </tr>
         </thead>
-
         <tbody>
-            @foreach(var employee in Model.Employees)
+            @foreach (var employee in Model.Employees)
             {
                 <tr>
                     <td>@employee.Emid</td>
                     <td>@employee.Name</td>
                     <td>@employee.Email</td>
-                    <td>@employee.ParentId</td>
+                    <td>@employee.PositionId</td> 
+                    <td>@employee.ReportsTo</td> 
                     <td>@employee.Status</td>
-                    <td>@employee.PositionId</td>
                     <td>
-                        <button class="btn btn-outline-dark">Update</button>
-                        <button class="btn btn-outline-dark">Delete</button>
+                        <button class="btn btn-outline-dark" onclick="editEmployee('@employee.Emid')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteEmployee('@employee.Emid')">Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
-
     </table>
-        
 </div>
+
+
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <h3>Departments</h3>
+    <button class="btn btn-outline-dark" id="openModalButton">Add Department</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model.Departments)
+            {
+                <tr>
+                    <td>@department.Doid</td>
+                    <td>@department.Name</td>
+                    <td>@department.ReportsTo</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editDepartment('@department.Doid')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteDepartment('@department.Doid')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <h3>Teams</h3>
+    <button class="btn btn-outline-dark" id="openModalButton">Add Department</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+                <th>Department ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.Teams)
+            {
+                <tr>
+                    <td>@team.TeamId</td>
+                    <td>@team.TeamName</td>
+                    <td>@team.DepartmentId</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editDepartment('@team.TeamId')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteDepartment('@team.TeamId')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 
