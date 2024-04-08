@@ -13,9 +13,9 @@ namespace OrganizationChartMIS.Data.Service.Employee
             _employeeRepository = employeeRepository;
         }
 
-        public EmployeeObject CreateAndSaveEmployee(string Email, string Name, string ReportsTo, string Status, string PositionId)
+        public EmployeeObject CreateAndSaveEmployee(string Email, string Name, string Status, string PositionId)
         {
-            Console.WriteLine($"CreateAndSaveEmployee - Creating Employee: Email={Email}, Name={Name}, ReportsTo={ReportsTo}, Status={Status}, PositionId={PositionId}");
+            Console.WriteLine($"CreateAndSaveEmployee - Creating Employee: Email={Email}, Name={Name}, Status={Status}, PositionId={PositionId}");
 
             string Emid = GenerateUniqueEmid();
             Console.WriteLine($"CreateAndSaveEmployee - Generated EMID: {Emid}");
@@ -25,7 +25,7 @@ namespace OrganizationChartMIS.Data.Service.Employee
                 Emid = Emid,
                 Email = Email,
                 Name = Name,
-                ReportsTo = ReportsTo,
+                ReportsTo = null,
                 Status = Status,
                 PositionId = PositionId
             };
@@ -43,7 +43,7 @@ namespace OrganizationChartMIS.Data.Service.Employee
             return _employeeRepository.GetEmployee(emid);
         }
 
-        public EmployeeObject UpdateEmployee(string emid, string email, string name, string reportsTo, string status, string positionId)
+        public EmployeeObject UpdateEmployee(string emid, string email, string name, string status, string positionId)
         {
             try
             {
@@ -53,7 +53,6 @@ namespace OrganizationChartMIS.Data.Service.Employee
                 {
                     employeeToUpdate.Email = email;
                     employeeToUpdate.Name = name;
-                    employeeToUpdate.ReportsTo = reportsTo;
                     employeeToUpdate.Status = status;
                     employeeToUpdate.PositionId = positionId;
                     _employeeRepository.UpdateEmployee(employeeToUpdate);

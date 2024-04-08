@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrganizationChartMIS.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+
 
 using OrganizationChartMIS.Data.Service.Department;
 using OrganizationChartMIS.Data.Service.Employee;
@@ -87,10 +89,7 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public JsonResult OnGetDepartments()
         {
             var departments = _departmentService.GetAllDepartments();
-            Console.WriteLine("Got departments:" + departments);
-
             return new JsonResult(departments);
-
         }
 
         public JsonResult OnGetTeams()
@@ -102,16 +101,18 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public JsonResult OnGetPositions(string department)
         {
             var positions = _positionService.GetPositionsByDepartment(department);
+            var jsonString = JsonSerializer.Serialize(positions);
+            //Console.WriteLine(jsonString); 
             return new JsonResult(positions);
         }
 
-        public IActionResult OnPostAddNewEmployee(string name, string email, string positionName, string supervisorName, string status)
+        public IActionResult OnPostAddNewEmployee(string name, string email, string positionName, string status)
         {
-            Console.WriteLine($"OnPostAddNewEmployeeAsync - Information: Name: {name}, Email: {email}, PositionName: {positionName}, SupervisorName: {supervisorName}, Status: {status}");
+            Console.WriteLine($"OnPostAddNewEmployeeAsync - Information: Name: {name}, Email: {email}, PositionName: {positionName}, Status: {status}");
 
             try
             {
-                var employee = _employeeService.CreateAndSaveEmployee(email, name, supervisorName, status, positionName);
+                var employee = _employeeService.CreateAndSaveEmployee(email, name, status, positionName);
                 Console.WriteLine($"OnPostAddNewEmployee - Employee Created: {employee.Emid}");
             }
             catch (Exception ex)
