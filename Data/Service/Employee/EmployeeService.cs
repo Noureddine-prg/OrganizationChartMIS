@@ -15,20 +15,19 @@ namespace OrganizationChartMIS.Data.Service.Employee
 
         public EmployeeObject CreateAndSaveEmployee(string Email, string Name, string Status, string PositionId)
         {
-            Console.WriteLine($"CreateAndSaveEmployee - Creating Employee: Email={Email}, Name={Name}, Status={Status}, PositionId={PositionId}");
-
-            string Emid = GenerateUniqueEmid();
-            Console.WriteLine($"CreateAndSaveEmployee - Generated EMID: {Emid}");
 
             var newEmployee = new EmployeeObject
             {
-                Emid = Emid,
+                Emid = GenerateUniqueEmid(),
                 Email = Email,
                 Name = Name,
-                ReportsTo = null,
                 Status = Status,
                 PositionId = PositionId
             };
+
+
+            Console.WriteLine($"CreateAndSaveEmployee - Creating Employee: Emid={newEmployee.Emid} Email={Email}, Name={Name}, Status={Status}, PositionId={PositionId}");
+
 
             Console.WriteLine(newEmployee.ToString());
 

@@ -13,13 +13,13 @@
 
         public Employee() { }
 
-        public Employee(string emid, string email, string name, string reportsTo, string status, string positionId)
+        public Employee(string emid, string email, string name, string status, string positionId)
         {
             Emid = emid;
             Email = email;
             Name = name;
-            ReportsTo = reportsTo; 
             Status = status;
+            ReportsTo = null;
             PositionId = positionId; 
         }
     }

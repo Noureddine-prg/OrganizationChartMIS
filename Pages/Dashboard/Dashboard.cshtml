@@ -47,7 +47,7 @@
 <div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
     <h3>Employees</h3>
     <button class="btn btn-outline-dark" id="openModalButton">Add Employee</button>
-    <table class="table">
+    <table class="table" id="employeesTable">
         <thead>
             <tr>
                 <th>Employee ID</th>
@@ -67,7 +67,6 @@
                     <td>@employee.Name</td>
                     <td>@employee.Email</td>
                     <td>@employee.PositionId</td> 
-                    <td>@employee.ReportsTo</td> 
                     <td>@employee.Status</td>
                     <td>
                         <button class="btn btn-outline-dark" onclick="editEmployee('@employee.Emid')">Update</button>

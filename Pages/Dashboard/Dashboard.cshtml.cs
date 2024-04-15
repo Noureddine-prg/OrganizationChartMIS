@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrganizationChartMIS.Data.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+
 
 
 using OrganizationChartMIS.Data.Service.Department;
 using OrganizationChartMIS.Data.Service.Employee;
 using OrganizationChartMIS.Data.Service.Position;
 using OrganizationChartMIS.Data.Service.Team;
+using Kendo.Mvc.UI;
 
 namespace OrganizationChartMIS.Pages.Dashboard
 {
@@ -20,14 +21,22 @@ namespace OrganizationChartMIS.Pages.Dashboard
         private readonly ITeamService _teamService;
 
         // Data to be displayed on the page
-        public IList<Employee> Employees { get; private set; }
-        public IList<Position> Positions { get; private set; }
-        public IList<Department> Departments { get; private set; }
-        public IList<Team> Teams { get; private set; }
+
+        [BindProperty]
+        public IList<Employee> Employees { get; set; }
+        
+        [BindProperty]
+        public IList<Position> Positions { get; set; }
+
+        [BindProperty]
+        public IList<Department> Departments { get; set; }
+
+        [BindProperty]
+        public IList<Team> Teams { get; set; }
 
         [BindProperty]
         public Employee NewEmployee { get; set; } = new Employee();
-        
+
         [BindProperty]
         public Position NewPosition { get; set; } = new Position();
 
@@ -61,7 +70,7 @@ namespace OrganizationChartMIS.Pages.Dashboard
         [BindProperty]
         public string TeamName { get; set; }
 
-        // Constructor with dependency injection
+
         public DashboardModel(
             IEmployeeService employeeService,
             IPositionService positionService,
@@ -72,6 +81,7 @@ namespace OrganizationChartMIS.Pages.Dashboard
             _positionService = positionService ?? throw new ArgumentNullException(nameof(positionService));
             _departmentService = departmentService ?? throw new ArgumentNullException(nameof(departmentService));
             _teamService = teamService ?? throw new ArgumentNullException(nameof(teamService));
+
         }
 
         public void OnGet()
@@ -92,6 +102,12 @@ namespace OrganizationChartMIS.Pages.Dashboard
             return new JsonResult(departments);
         }
 
+        public JsonResult OnGetEmployees() 
+        {
+            var employees = _employeeService.GetAllEmployees();
+            return new JsonResult(employees);
+        }
+
         public JsonResult OnGetTeams()
         {
             var teams = _teamService.GetAllTeams();
@@ -101,30 +117,27 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public JsonResult OnGetPositions(string department)
         {
             var positions = _positionService.GetPositionsByDepartment(department);
-            var jsonString = JsonSerializer.Serialize(positions);
-            //Console.WriteLine(jsonString); 
             return new JsonResult(positions);
         }
 
-        public IActionResult OnPostAddNewEmployee(string name, string email, string positionName, string status)
+        public IActionResult OnPostAddNewEmployee(string name, string email, string positionId, string status)
         {
-            Console.WriteLine($"OnPostAddNewEmployeeAsync - Information: Name: {name}, Email: {email}, PositionName: {positionName}, Status: {status}");
+            Console.WriteLine($"OnPostAddNewEmployee - Information: Name: {name}, Email: {email}, PositionName: {positionId}, Status: {status}");
 
             try
             {
-                var employee = _employeeService.CreateAndSaveEmployee(email, name, status, positionName);
+                var employee = _employeeService.CreateAndSaveEmployee(email, name, status, positionId);
                 Console.WriteLine($"OnPostAddNewEmployee - Employee Created: {employee.Emid}");
+
+                return RedirectToPage("./Dashboard");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"OnPostAddNewEmployee - Exception: {ex.Message}");
-                return Page(); 
+                return RedirectToPage("./Dashboard");
+
             }
-
-            return RedirectToPage("./Dashboard");
         }
-
-
 
 
     }

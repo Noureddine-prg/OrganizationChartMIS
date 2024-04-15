@@ -46,10 +46,9 @@ function fetchPositions(department) {
         data: { department: department },
         contentType: "application/json",
         success: function (data) {
+            console.log("Fetch Positions")
             $('#position').empty().append('<option selected="true" disabled="disabled">Select Position</option>');
             $.each(data, function (key, entry) {
-                console.log(entry.Poid)
-                console.log(entry.Name)
                 $('#position').append($('<option></option>').attr('value', entry.Poid).text(entry.Name));
             });
             console.log(data)
@@ -59,7 +58,6 @@ function fetchPositions(department) {
 
 //gonna change this to grab  level and look for all people that are one level above that position in same department
 function fetchSupervisors(departmentId) {
-
     $.ajax({
         type: "GET",
         url: "?handler=Supervisors",
@@ -76,16 +74,12 @@ function fetchSupervisors(departmentId) {
 
 function createEmployee() {
     let formData = $('#createEmployeeForm').serializeArray();
-
-    console.log(formData);
-
     $.ajax({
         type: "POST",
         url: "?handler=AddNewEmployee",
         data: formData,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        success: function (response) {
-            console.log("Employee Created!", response);
+        success: function (formData) {
+            console.log("Employee Created!");
             $('#addEmployeeModal').modal('hide');
             window.location.reload();
         },
@@ -93,5 +87,5 @@ function createEmployee() {
             console.error("Error creating employee:", error);
         }
     });
-}
 
+}

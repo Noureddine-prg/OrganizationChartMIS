@@ -8,7 +8,6 @@ namespace OrganizationChartMIS.Data.Service.Employee
         EmployeeObject GetEmployee(string emid);
         EmployeeObject UpdateEmployee(string emid, string email, string name, string status, string positionId);
         bool DeleteEmployee(string emid);
-
         List<EmployeeObject> GetAllEmployees();
         string GenerateUniqueEmid();
     }

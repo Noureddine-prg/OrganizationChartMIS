@@ -124,8 +124,9 @@ namespace OrganizationChartMIS.Data.Repositories.Position
             SELECT p.poid, p.name, p.level, p.reportsTo, p.departmentId, p.teamId
             FROM position p
             JOIN department d ON p.departmentId = d.doid
-            WHERE d.name = @DepartmentName
-            ORDER BY p.name";
+            WHERE d.name = @DepartmentName AND p.level <> 3
+            ORDER BY p.level, p.name";
+            
             var parameters = new Dictionary<string, object> { { "@DepartmentName", selectedDepartment } };
 
             try
