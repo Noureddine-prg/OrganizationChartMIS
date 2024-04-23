@@ -98,8 +98,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9BZGRFbXBsb3llZU1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/Shared/_AddPositionModal.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9BZGRQb3NpdGlvbk1vZGFsLmNzaHRtbA==
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/Shared/_DeleteEmployeeModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9EZWxldGVFbXBsb3llZU1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/Shared/_UpdateEmployeeModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9VcGRhdGVFbXBsb3llZU1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/noure/OneDrive/Desktop/NET Programming/OrganizationChartMIS/Pages/Shared/_ValidationScriptsPartial.cshtml]

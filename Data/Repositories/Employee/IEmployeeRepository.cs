@@ -9,7 +9,7 @@ namespace OrganizationChartMIS.Data.Repositories.Employee
         void UpdateEmployee(EmployeeObject employee);
         void DeleteEmployee(string emid);
         List<EmployeeObject> GetAllSupervisorsByDepartment(string selectedDepartment);
-        string GetSupervisorIDByNameAndEmail(string supervisorName, string email);
+        string GetDepartmentIdByPositionId(string positionId);
         bool CheckEmidExists(string emid);
     }
 }

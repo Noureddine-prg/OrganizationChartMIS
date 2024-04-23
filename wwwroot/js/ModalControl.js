@@ -13,6 +13,8 @@ $(document).ready(function () {
     });
 });
 
+
+// Show / Hide Modal
 function showModal(modalId) {
     $(`#${modalId}`).modal('show');
     console.log("Modal shown:", modalId);
@@ -22,6 +24,7 @@ function hideModal(modalId) {
     $(`#${modalId}`).modal('hide');
 }
 
+// Specific Grabs 
 function fetchDepartments() {
     $.ajax({
         type: "GET",
@@ -56,7 +59,7 @@ function fetchPositions(department) {
     });
 }
 
-//gonna change this to grab  level and look for all people that are one level above that position in same department
+// Gonna change this to grab  level and look for all people that are one level above that position in same department
 function fetchSupervisors(departmentId) {
     $.ajax({
         type: "GET",
@@ -72,6 +75,7 @@ function fetchSupervisors(departmentId) {
     });
 }
 
+// Employee
 function createEmployee() {
     let formData = $('#createEmployeeForm').serializeArray();
     $.ajax({
@@ -87,5 +91,65 @@ function createEmployee() {
             console.error("Error creating employee:", error);
         }
     });
-
 }
+
+function updateEmployeeModal(emid) {
+    $.ajax({
+        type: "GET",
+        url: `?handler=EditEmployee`,
+        data: { emid: emid }, 
+        success: function (data) {
+            console.log(data);
+            console.log(data.Emid, "This should be employee data");
+
+            
+            $('#emid').val(data.Emid); 
+            $('#department').val(data.D)
+            $('#updateName').val(data.Name); 
+            $('#updateEmail').val(data.Email);
+            
+
+
+            showModal('updateEmployeeModal');
+        },
+        error: function () {
+            alert("Failed to fetch employee details.");
+        }
+    });
+}
+
+function updateEmployee() {
+    let formData = $('#updateEmployeeForm').serialize();
+    $.ajax({
+        type: "POST",
+        url: "?handler=UpdateEmployee",
+        data: formData,
+        success: function () {
+            $('#updateEmployeeModal').modal('hide');
+            alert('Employee updated successfully');
+            window.location.reload();
+        },
+        error: function () {
+            alert('Error updating employee');
+        }
+    });
+}
+
+function deleteEmployee() {
+    let emid = $('#deleteEmployeeId').val(); 
+    $.ajax({
+        type: "POST",
+        url: "?handler=DeleteEmployee",
+        data: { emid: emid },
+        success: function () {
+            $('#deleteEmployeeModal').modal('hide');
+            alert('Employee deleted successfully');
+            window.location.reload();
+        },
+        error: function () {
+            alert('Error deleting employee');
+        }
+    });
+}
+
+// positions 

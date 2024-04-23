@@ -188,8 +188,6 @@ namespace OrganizationChartMIS.Data.Repositories.Employee
             }
         }
 
-
-
         public List<EmployeeObject> GetAllEmployees()
         {
             List<EmployeeObject> employees = new List<EmployeeObject>();
@@ -230,6 +228,11 @@ namespace OrganizationChartMIS.Data.Repositories.Employee
             return false;
         }
 
+
+        string GetDepartmentIdByPositionId(string positionId) 
+        {
+            return null;
+        }
     }
 
 }
