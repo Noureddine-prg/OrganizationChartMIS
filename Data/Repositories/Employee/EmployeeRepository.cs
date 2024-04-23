@@ -229,7 +229,7 @@ namespace OrganizationChartMIS.Data.Repositories.Employee
         }
 
 
-        string GetDepartmentIdByPositionId(string positionId) 
+        public string GetDepartmentIdByPositionId(string positionId) 
         {
             return null;
         }
