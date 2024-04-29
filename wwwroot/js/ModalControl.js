@@ -94,6 +94,8 @@ function createEmployee() {
 }
 
 function updateEmployeeModal(emid) {
+    fetchDepartments();
+
     $.ajax({
         type: "GET",
         url: `?handler=EditEmployee`,
@@ -101,13 +103,10 @@ function updateEmployeeModal(emid) {
         success: function (data) {
             console.log(data);
             console.log(data.Emid, "This should be employee data");
-
             
             $('#emid').val(data.Emid); 
-            $('#department').val(data.D)
             $('#updateName').val(data.Name); 
             $('#updateEmail').val(data.Email);
-            
 
 
             showModal('updateEmployeeModal');

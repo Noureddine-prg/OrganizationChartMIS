@@ -229,9 +229,27 @@ namespace OrganizationChartMIS.Data.Repositories.Employee
         }
 
 
-        public string GetDepartmentIdByPositionId(string positionId) 
+        public string GetDepartmentIdByEmployeePosition(string positionId) 
         {
-            return null;
+            string query = "SELECT departmentId FROM position WHERE poid = @PositionId";
+            var parameters = new Dictionary<string, object> { { "@PositionId", positionId } };
+            string departmentId = null;
+
+            try 
+            {
+                DataTable result = _databaseHelper.ExecuteQuery(query, parameters);
+                if (result.Rows.Count > 0) 
+                {
+                    departmentId = result.Rows[0]["departmentId"].ToString();
+                }
+            }
+            catch (Exception ex) 
+            {
+                departmentId="";
+                Console.WriteLine($"GetDepartmentByPositionId - Exception: {ex.Message}");
+            }
+            
+            return departmentId;
         }
     }
 

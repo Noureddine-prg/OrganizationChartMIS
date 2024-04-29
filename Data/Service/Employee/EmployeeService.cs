@@ -107,6 +107,20 @@ namespace OrganizationChartMIS.Data.Service.Employee
             }
         }
 
+        public string GetDepartmentIdForEmployee(string positionId)
+        {
+            try 
+            {
+                return _employeeRepository.GetDepartmentIdByEmployeePosition(positionId);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"GetDepartmentIdForEmployee - Exception: {ex.Message}");
+                return "";
+            }
+            
+        }
+
         public string GenerateUniqueEmid()
         {
 

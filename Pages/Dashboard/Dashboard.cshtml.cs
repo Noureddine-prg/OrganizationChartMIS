@@ -143,12 +143,17 @@ namespace OrganizationChartMIS.Pages.Dashboard
         public JsonResult OnGetEditEmployee(string emid)
         {
             NewEmployee = _employeeService.GetEmployee(emid);
+
+            Console.WriteLine(NewEmployee.Name);
             if (NewEmployee == null)
             {
                 return new JsonResult(new { success = false });
             }
+
             return new JsonResult(NewEmployee);
         }
+
+
 
         public IActionResult OnPostUpdateEmployee(string emid, string email, string name, string status, string positionId)
         {
@@ -185,6 +190,7 @@ namespace OrganizationChartMIS.Pages.Dashboard
             }
         }
 
+        
 
 
         // Position
