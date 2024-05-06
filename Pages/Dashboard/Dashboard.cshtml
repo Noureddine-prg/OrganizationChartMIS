@@ -23,7 +23,6 @@
                 <th>Name</th>
                 <th>Department</th>
                 <th>Level</th>
-                <th>Reports To</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -35,7 +34,6 @@
                     <td>@position.Name</td>
                     <td>@position.DepartmentId</td> 
                     <td>@position.Level</td>
-                    <td>@position.ReportsTo</td> 
                     <td>
                         <button class="btn btn-outline-dark" onclick="editPosition('@position.Poid') ">Update</button>
                         <button class="btn btn-outline-dark" onclick="deletePosition('@position.Poid')">Delete</button>

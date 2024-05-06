@@ -22,10 +22,9 @@ namespace OrganizationChartMIS.Data.Repositories.OrgChartNode
             string commandText = "";
             var parameters = new Dictionary<string, object>
             {
-                {"@NodeId", node.NodeId ?? GenerateNodeId()},
+                //{"@NodeId", node.NodeId ?? GenerateNodeId()},
                 {"@PositionId", node.PositionId},
                 {"@EmployeeId", node.EmployeeId},
-                {"@DeoartmentId", node.DepartmentId},
                 {"@TeamId", node.TeamId},
                 {"@ReportsToNodeId", node.ReportsToNodeId}
             };

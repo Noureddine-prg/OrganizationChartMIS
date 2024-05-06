@@ -9,7 +9,6 @@ namespace OrganizationChartMIS.Data.Models
         public string NodeId { get; set; }
         public string PositionId { get; set; }
         public string EmployeeId { get; set; }
-        public string DepartmentId { get; set; }
         public string TeamId { get; set; }
         public string ReportsToNodeId { get; set; }
         //Properties to be displayed

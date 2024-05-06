@@ -20,7 +20,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
             try
             {
                 PositionObject position = null;
-                string query = @"SELECT poid, name, level, reportsTo, departmentId, teamId 
+                string query = @"SELECT poid, name, level, departmentId
                     FROM position 
                     WHERE poid = @Poid";
                 var parameters = new Dictionary<string, object> { { "@Poid", poid } };
@@ -35,9 +35,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
                         Poid = row["poid"].ToString(),
                         Name = row["name"].ToString(),
                         Level = Convert.ToInt32(row["level"]),
-                        ReportsTo = row.IsNull("reportsTo") ? null : row["reportsTo"].ToString(),
                         DepartmentId = row["departmentId"].ToString(),
-                        TeamId = row.IsNull("teamId") ? null : row["teamId"].ToString()
                     };
                 }
                 return position;
@@ -53,16 +51,14 @@ namespace OrganizationChartMIS.Data.Repositories.Position
         {
             try
             {
-                string query = @"INSERT INTO position (poid, name, level, reportsTo, departmentId, teamId) 
-                         VALUES (@Poid, @Name, @Level, @ReportsTo, @DepartmentId, @TeamId)";
+                string query = @"INSERT INTO position (poid, name, level, departmentId) 
+                         VALUES (@Poid, @Name, @Level, @ReportsTo, @DepartmentId)";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@Poid", position.Poid},
                     {"@Name", position.Name},
                     {"@Level", position.Level},
-                    {"@ReportsTo", position.ReportsTo ?? (object)DBNull.Value},
                     {"@DepartmentId", position.DepartmentId},
-                    {"@TeamId", position.TeamId ?? (object) DBNull.Value}
                 };
 
                 _databaseHelper.ExecuteUpdate(query, parameters);
@@ -79,17 +75,15 @@ namespace OrganizationChartMIS.Data.Repositories.Position
             try
             {
                 string query = @"UPDATE position 
-                         SET name = @Name, level = @Level, reportsTo = @ReportsTo, 
-                             departmentId = @DepartmentId, teamId = @TeamId 
+                         SET name = @Name, level = @Level, 
+                             departmentId = @DepartmentId
                          WHERE poid = @Poid";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@Poid", position.Poid},
                     {"@Name", position.Name},
                     {"@Level", position.Level},
-                    {"@ReportsTo", position.ReportsTo ?? (object) DBNull.Value},
                     {"@DepartmentId", position.DepartmentId},
-                    {"@TeamId", position.TeamId ?? (object) DBNull.Value}
                 };
 
                 _databaseHelper.ExecuteUpdate(query, parameters);
@@ -121,7 +115,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
         {
             var positions = new List<PositionObject>();
             string query = @"
-            SELECT p.poid, p.name, p.level, p.reportsTo, p.departmentId, p.teamId
+            SELECT p.poid, p.name, p.level, p.departmentId
             FROM position p
             JOIN department d ON p.departmentId = d.doid
             WHERE d.name = @DepartmentName AND p.level <> 3
@@ -139,9 +133,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
                         Poid = row["poid"].ToString(),
                         Name = row["name"].ToString(),
                         Level = Convert.ToInt32(row["level"]),
-                        ReportsTo = row.IsNull("reportsTo") ? null : row["reportsTo"].ToString(),
                         DepartmentId = row["departmentId"].ToString(),
-                        TeamId = row.IsNull("teamId") ? null : row["teamId"].ToString()
                     });
                 }
             }
@@ -157,7 +149,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
         {
             var positions = new List<PositionObject>();
             string query = @"
-            SELECT poid, name, level, reportsTo, departmentId, teamId
+            SELECT poid, name, level, departmentId
             FROM position";
 
             try
@@ -170,9 +162,7 @@ namespace OrganizationChartMIS.Data.Repositories.Position
                         Poid = row["poid"].ToString(),
                         Name = row["name"].ToString(),
                         Level = Convert.ToInt32(row["level"]),
-                        ReportsTo = row.IsNull("reportsTo") ? null : row["reportsTo"].ToString(),
                         DepartmentId = row["departmentId"].ToString(),
-                        TeamId = row.IsNull("teamId") ? null : row["teamId"].ToString()
                     });
                 }
             }

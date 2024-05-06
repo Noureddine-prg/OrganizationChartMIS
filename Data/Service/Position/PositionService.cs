@@ -13,10 +13,10 @@ namespace OrganizationChartMIS.Data.Service.Position
             _positionRepository = positionRepository;
         }
 
-        public PositionObject CreateAndSavePosition(string name, int level, string departmentId, string reportsTo = null, string teamId = null)
+        public PositionObject CreateAndSavePosition(string name, int level, string departmentId)
         {
             var poid = GenerateUniquePoid();
-            Console.WriteLine($"CreateAndSavePosition - Creating Position: Name={name}, Level={level}, DepartmentID={departmentId}, ReportsTo={reportsTo}, TeamID={teamId}, POID={poid}");
+            Console.WriteLine($"CreateAndSavePosition - Creating Position: Name={name}, Level={level}, DepartmentID={departmentId}, POID={poid}");
 
             var newPosition = new PositionObject
             {
@@ -24,8 +24,6 @@ namespace OrganizationChartMIS.Data.Service.Position
                 Name = name,
                 Level = level,
                 DepartmentId = departmentId,
-                ReportsTo = reportsTo,
-                TeamId = teamId
             };
 
             _positionRepository.AddPosition(newPosition);
@@ -47,7 +45,7 @@ namespace OrganizationChartMIS.Data.Service.Position
             }
         }
 
-        public PositionObject UpdatePosition(string poid, string name, int level, string departmentId, string reportsTo = null, string teamId = null)
+        public PositionObject UpdatePosition(string poid, string name, int level, string departmentId)
         {
             try
             {
@@ -58,8 +56,6 @@ namespace OrganizationChartMIS.Data.Service.Position
                     positionToUpdate.Name = name;
                     positionToUpdate.Level = level;
                     positionToUpdate.DepartmentId = departmentId;
-                    positionToUpdate.ReportsTo = reportsTo;
-                    positionToUpdate.TeamId = teamId;
 
                     _positionRepository.UpdatePosition(positionToUpdate);
                     return positionToUpdate;
