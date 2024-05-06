@@ -5,10 +5,44 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4"> MIS Organization Chart Application</h1>
-    <a class="btn btn-primary" href="/Dashboard/Dashboard">View Dashboard</a>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-    <a class="btn btn-info" href="/OrgChart/Index">View Organization Chart</a>
+<div class="h-100 d-flex flex-column">
+    <!-- Header -->
+    <div class="text-light container-fluid py-2 d-flex justify-content-between bg-dark">
+        <div class="">
+            <h1 class=""> MIS Organization Chart Application</h1>
+        </div>
+        <div class="d-flex gap-3 my-auto">
+            <div class="">
+                <a class="btn btn-primary" href="/Dashboard/Dashboard">View Dashboard</a>
+            </div>
+            <div class="">
+                <a class="btn btn-secondary" href="/OrgChart/Index">View Organization Chart</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 h-100">
+        <!-- Sidebar -->
+        <div class="px-4 col-4 bg-dark">
+            <h2 class="text-light pb-5">
+                Sign in to Org Chart
+            </h2>
+            <form class="text-light">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+        <div class="col-8">
+            <h1 class="text-light">
+                Main
+            </h1>
+        </div>
+    </div>
 </div>
-
-

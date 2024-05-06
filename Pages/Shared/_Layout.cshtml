@@ -9,23 +9,25 @@
     <link rel="stylesheet" href="~/OrganizationChartMIS.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-	<link href="https://kendo.cdn.telerik.com/themes/7.0.2/default/default-ocean-blue.css" rel="stylesheet" type="text/css" />
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
-	<script src="https://cdn.kendostatic.com/2024.1.130/js/kendo.all.min.js"></script>
-	<script src="https://cdn.kendostatic.com/2024.1.130/js/kendo.aspnetmvc.min.js"></script>
+    <link href="https://kendo.cdn.telerik.com/themes/7.0.2/default/default-ocean-blue.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2024.1.130/js/kendo.all.min.js"></script>
+    <script src="https://cdn.kendostatic.com/2024.1.130/js/kendo.aspnetmvc.min.js"></script>
 </head>
-<body>
+<style>
+    .layout {
+        height: 100vh;
+    }
+</style>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<body>
+    <main role="main" class="layout">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-        </div>
+        <div class="container"></div>
     </footer>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
