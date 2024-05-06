@@ -23,3 +23,4 @@ namespace OrganizationChartMIS.Data.Models
         }
     }
 }
+
