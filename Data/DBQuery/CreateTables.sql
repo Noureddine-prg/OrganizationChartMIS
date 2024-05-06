@@ -43,3 +43,21 @@ CREATE TABLE employee (
     FOREIGN KEY (positionId) REFERENCES position(poid),
     FOREIGN KEY (reportsTo) REFERENCES employee(emid)
 );
+
+CREATE TABLE orgnodes (
+    nodeId VARCHAR(50) PRIMARY KEY, -- Function for node ID generation
+    positionId VARCHAR(50) NOT NULL, -- Position [use this to display position information]
+    employeeId VARCHAR(50) NULL,  -- Employee if there is any (create function for adding/removing employee from node)
+    departmentId VARCHAR(50) NULL, 
+    teamId VARCHAR(50) NULL,   
+    reportsToNodeId VARCHAR(50) NULL,  -- Link [this is going to be set to position's reportsTo attribute]
+    FOREIGN KEY (PositionId) REFERENCES position(poid),
+    FOREIGN KEY (EmployeeId) REFERENCES employee(emid),
+    FOREIGN KEY (DepartmentId) REFERENCES department(doid),
+    FOREIGN KEY (TeamId) REFERENCES team(teamid),
+    FOREIGN KEY (ReportsToNodeId) REFERENCES orgnodes(nodeId)
+);
+
+
+
+
