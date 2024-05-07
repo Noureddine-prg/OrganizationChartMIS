@@ -51,7 +51,6 @@ CREATE TABLE orgnode (
     FOREIGN KEY (PositionId) REFERENCES position(poid),
     FOREIGN KEY (EmployeeId) REFERENCES employee(emid),
     FOREIGN KEY (TeamId) REFERENCES team(teamid),
-    FOREIGN KEY (ReportsToNodeId) REFERENCES orgnodes(nodeId)
 );
 
 

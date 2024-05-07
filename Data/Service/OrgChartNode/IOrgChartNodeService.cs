@@ -4,7 +4,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
 {
     public interface IOrgChartNodeService
     {
- 
         OrgChartNodeObject CreateAndSaveNode(string positionId, string employeeId, string teamId, string reportsToNodeId);
         OrgChartNodeObject GetNodeById(string id);
         void UpdateNode(OrgChartNodeObject node);
