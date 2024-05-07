@@ -46,7 +46,6 @@ CREATE TABLE orgnode (
     positionId VARCHAR(50) NOT NULL, -- Position [use this to display position information] -> grab parent department -> [positions that are in the department]
     employeeId VARCHAR(50) NULL,  -- Employee if there is any (create function for adding/removing employee from node) [search employee list -> getallemployees()]
     teamId VARCHAR(50) NULL, -- Get all teams
-
     reportsToNodeId VARCHAR(50) NULL,  -- Link [this is going to be set to position's reportsTo attribute] -> grab parent node id from where you create it 
 
     FOREIGN KEY (PositionId) REFERENCES position(poid),

@@ -11,7 +11,6 @@ namespace OrganizationChartMIS.Data.Models
         public string EmployeeId { get; set; }
         public string TeamId { get; set; }
         public string ReportsToNodeId { get; set; }
-        //grab all org nodes, 
 
         //Properties to be displayed
         public string PositionName { get; set; }
