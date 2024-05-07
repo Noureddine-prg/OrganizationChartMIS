@@ -5,10 +5,9 @@
 }
 
 
-<partial name="_AddEmployeeModal" model="@Model.NewEmployee" />
-<partial name="_UpdateEmployeeModal" model="@Model.NewEmployee" />
-<partial name="_DeleteEmployeeModal" model="@Model.NewEmployee" />
-
+<partial name="EmployeePartials/_AddEmployeeModal" model="@Model.NewEmployee" />
+<partial name="EmployeePartials/_UpdateEmployeeModal" model="@Model.NewEmployee" />
+<partial name="EmployeePartials/_DeleteEmployeeModal" model="@Model.NewEmployee" />
 
 
 <h2>Dashboard</h2>
@@ -44,7 +43,6 @@
     </table>
 </div>
 
-
 <div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
     <h3>Employees</h3>
     <button class="btn btn-outline-dark" id="openModalButton">Add Employee</button>
@@ -77,7 +75,6 @@
         </tbody>
     </table>
 </div>
-
 
 <div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
     <h3>Departments</h3>

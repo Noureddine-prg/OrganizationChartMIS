@@ -18,6 +18,8 @@ namespace OrganizationChartMIS.Data.Models
         public string EmployeeName { get; set; }
         public string EmployeeEmail { get; set; }
         public string DepartmentName { get; set; }  
-
     }
+        
+
+
 }
