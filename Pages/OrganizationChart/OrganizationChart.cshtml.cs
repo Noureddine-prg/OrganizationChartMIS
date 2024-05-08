@@ -18,7 +18,6 @@ namespace OrganizationChartMIS.Pages.OrganizationChart
         public void OnGet()
         {
             Nodes = _orgChartNodeService.GetAllNodes();
-            Console.WriteLine(Nodes[1].ToString());
         }
     }
 }
