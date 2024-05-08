@@ -1,4 +1,22 @@
 ﻿@page
+@using OrganizationChartMIS.Data.Models
+@using OrgChartNodeObject = OrganizationChartMIS.Data.Models.OrgChartNode;
 @model OrganizationChartMIS.Pages.OrganizationChart.OrganizationChartModel
-@{
-}
+
+<h1>Organization Chart</h1>
+
+@(Html.Kendo().OrgChart<OrgChartNodeObject>()
+    .Name("orgChart")
+    .DataSource(dataSource => dataSource
+        .Read(read => read.Action("Read", "OrgChart"))
+        .Model(m =>
+        {
+            m.Id(f => f.NodeId);
+            m.ParentId(f => f.ReportsToNodeId);
+            m.Field(f => f.PositionName);
+            m.Field(f => f.EmployeeName);
+            m.Field(f => f.EmployeeEmail);
+        })
+    )
+    .TemplateId("orgchart-template")
+)

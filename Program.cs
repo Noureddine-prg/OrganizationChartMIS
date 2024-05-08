@@ -9,6 +9,7 @@ using OrganizationChartMIS.Data.Service.Team;
 using OrganizationChartMIS.Data.Service.Employee;
 using OrganizationChartMIS.Data.Service.Position;
 using OrganizationChartMIS.Data.Repositories.OrgChartNode;
+using OrganizationChartMIS.Data.Service.OrgChartNode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,15 +26,14 @@ builder.Services.AddScoped<PositionRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<TeamRepository>();
-builder.Services.AddScoped<OrgChartNodeRepository> ();
+builder.Services.AddScoped<OrgChartNodeRepository>();
 
 
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
-//builder.Services.AddScoped<IOrgChartNodeService, OrgChartNodeService>();
-
+builder.Services.AddScoped<IOrgChartNodeService, OrgChartNodeService>();
 
 
 builder.Services.AddScoped<DatabaseHelper>(serviceProvider => {

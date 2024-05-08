@@ -14,5 +14,6 @@ namespace OrganizationChartMIS.Data.Repositories.OrgChartNode
         void AssignEmployeeToNode(string nodeId, string employeeId);
         void RemoveEmployeeFromNode(string nodeId);
         public bool CheckNodeIdExists(string nodeId);
+        
     }
 }

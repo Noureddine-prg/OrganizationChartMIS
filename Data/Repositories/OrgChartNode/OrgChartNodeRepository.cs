@@ -11,7 +11,7 @@ using OrgChartNodeObject = OrganizationChartMIS.Data.Models.OrgChartNode;
 
 namespace OrganizationChartMIS.Data.Repositories.OrgChartNode
 {
-    public class OrgChartNodeRepository
+    public class OrgChartNodeRepository : IOrgChartNodeRepository
     {
         private readonly DatabaseHelper _databaseHelper;
 
@@ -53,7 +53,6 @@ namespace OrganizationChartMIS.Data.Repositories.OrgChartNode
                     PositionName = row.IsNull("PositionName") ? null : row["PositionName"].ToString(),
                     EmployeeName = row.IsNull("EmployeeName") ? null : row["EmployeeName"].ToString(),
                     EmployeeEmail = row.IsNull("EmployeeEmail") ? null : row["EmployeeEmail"].ToString(),
-                    DepartmentName = row.IsNull("DepartmentName") ? null : row["DepartmentName"].ToString()
                 });
             }
 

@@ -4,12 +4,12 @@ using OrgChartNodeObject = OrganizationChartMIS.Data.Models.OrgChartNode;
 
 namespace OrganizationChartMIS.Data.Service.OrgChartNode
 {
-    public class OrgChartNodeService: IOrgChartNodeService
+    public class OrgChartNodeService : IOrgChartNodeService
     {
 
-        private readonly IOrgChartNodeRepository _orgChartNodeRepository;
+        private readonly OrgChartNodeRepository _orgChartNodeRepository;
 
-        public OrgChartNodeService(IOrgChartNodeRepository orgChartNodeRepository) 
+        public OrgChartNodeService(OrgChartNodeRepository orgChartNodeRepository) 
         {
             _orgChartNodeRepository = orgChartNodeRepository;
         }
@@ -138,7 +138,7 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             }
             catch (Exception ex) 
             {
-                Console.WriteLine($" RemoveEmployeeFRomNode - Exception: {ex.Message}");
+                Console.WriteLine($" RemoveEmployeeFromNode - Exception: {ex.Message}");
             }
     
         }
