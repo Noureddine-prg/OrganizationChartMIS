@@ -17,7 +17,21 @@ namespace OrganizationChartMIS.Pages.OrganizationChart
 
         public void OnGet()
         {
-            Nodes = _orgChartNodeService.GetAllNodes();
+                
         }
+
+        public JsonResult OnGetOrgChartNodes()
+        {
+            Console.WriteLine("We are grabbing");
+            var nodes = _orgChartNodeService.GetAllNodes();
+
+            foreach (var node in nodes)
+            {
+                Console.WriteLine($"Node ID: {node.NodeId}, Position: {node.PositionName}, Employee: {node.EmployeeName}, Email: {node.EmployeeEmail}");
+            }
+
+            return new JsonResult(nodes);
+        }
+
     }
 }
