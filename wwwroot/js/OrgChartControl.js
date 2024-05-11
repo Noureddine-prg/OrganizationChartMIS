@@ -1,34 +1,48 @@
 ﻿
-
 $(document).ready(function () {
+    fetchOrgChartData();
+});
+
+function fetchOrgChartData() {
     $.ajax({
         type: "GET",
-        url: "?handler=OrgChartNodes",
-        dataType: "json",
+        url: "?handler=OrgChartData", 
+        dataType: "json", 
         success: function (data) {
-            $("#orgChart").kendoOrgChart({
-                dataSource: {
-                    data: data, 
-                    schema: {
-                        model: {
-                            id: "NodeId",
-                            parentId: "ReportsToNodeId",
-                            fields: {
-                                NodeId: { type: "string" },
-                                ReportsToNodeId: { type: "string" },
-                                PositionName: { type: "string" },
-                                EmployeeName: { type: "string" },
-                                EmployeeEmail: { type: "string" }
-                            }
-                        }
-                    }
-                },
-                dataTextField: "PositionName",
-                renderAs: "canvas"
-            });
+            console.log("Org Chart Data Loaded");
+            initializeOrgChart(data); 
         },
-        error: function (xhr, status, error) {
-            console.error("Error fetching OrgChart data: ", status, error);
+        error: function (error) {
+            console.error("Error fetching Org Chart data:", error);
         }
     });
-});
+}
+
+function initializeOrgChart(data) {
+console.log("Initializing OrgChart with data", data);
+
+    var orgChartDataSource = new kendo.data.OrgChartDataSource({
+        data: data,
+        schema: {
+            model: {
+                Id: "id", 
+                parentId: "parentId", 
+                fields: {
+                    id: { field: "NodeId", type: "string", nullable: false },
+                    parentId: { field: "ReportsToNodeId", type: "string", nullable: true },
+                    title: { field: "PositionName", type: "string" },
+                    name: { field: "EmployeeName", type: "string", nullable: true },
+                    EmployeeEmail: { field: "EmployeeEmail", type: "string", nullable: true },
+                    DepartmentName: { field: "DepartmentName", type: "string", nullable: true }
+                }
+            }
+        }
+    });
+
+    $("#orgchart").kendoOrgChart({
+        dataSource: orgChartDataSource,
+        dataTextField: "PositionName",
+    });
+
+console.log("OrgChart initialized");
+}
