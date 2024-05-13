@@ -23,14 +23,7 @@ namespace OrganizationChartMIS.Pages.OrganizationChart
 
         public JsonResult OnGetOrgChartData()
         {
-            Console.WriteLine("Org Data:");
             var nodes = _orgChartNodeService.GetAllNodes();
-
-            foreach (var node in nodes)
-            {
-                Console.WriteLine($"{node}");
-                Console.WriteLine($"Node ID: {node.NodeId}, Reports To: {node.ReportsToNodeId}, Employee: {node.EmployeeName}, Email: {node.EmployeeEmail}");
-            }
 
             return new JsonResult(nodes);
         }

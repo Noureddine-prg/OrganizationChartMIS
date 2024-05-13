@@ -7,8 +7,45 @@
 
     <script src="~/js/OrgChartControl.js"></script>
 }
-<div class="container">
-    <h1>Organization Chart</h1>
-    <div id="orgchart" style="height: 600px; width: 100%;"></div>
+
+    <style>
+        .orgchart-container {
+            background-color: #f8f9fa; 
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            min-height: 90vh;
+            min-width: 90vw;
+        
+        }
+
+        #orgchart {
+            height: 80vh;
+            width: 100%;
+
+        }
+
+        .k-orgchart .k-orgchart-node-container {
+            margin: 10px; 
+        }
+
+        .k-orgchart .k-orgchart-node {
+            padding: 5px; 
+            margin: 5px;
+        }
+
+        .centered-content {
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+    </style>
+<div class="container centered-content">
+    <div class="orgchart-container">
+        <h1 class="text-center">Organization Chart</h1>
+        <div id="orgchart"></div>
+    </div>
 </div>
 

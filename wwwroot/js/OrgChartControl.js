@@ -39,10 +39,24 @@ console.log("Initializing OrgChart with data", data);
         }
     });
 
+
     $("#orgchart").kendoOrgChart({
         dataSource: orgChartDataSource,
-        dataTextField: "PositionName",
+        dataTextField: ["PositionName","EmployeeEmail","DepartmentName"]
     });
 
-console.log("OrgChart initialized");
+    console.log(orgChartDataSource)
+    console.log("OrgChart initialized");
+}
+
+function editNode(nodeId) {
+    
+}
+
+function deleteNode(nodeId) {
+
+}
+
+function addNode(){
+
 }
