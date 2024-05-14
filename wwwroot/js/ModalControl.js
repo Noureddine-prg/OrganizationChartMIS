@@ -2,10 +2,6 @@ $(document).ready(function () {
     console.log("Document ready, fetching departments...");
     fetchDepartments();
 
-    $('#openModalButton').click(function () {
-        $('#addEmployeeModal').modal('show');
-    });
-
     $('#department').change(function () {
         var departmentId = $(this).val();
         console.log("Department selected:", departmentId);

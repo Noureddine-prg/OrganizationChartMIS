@@ -25,6 +25,11 @@ namespace OrganizationChartMIS.Pages.OrganizationChart
         {
             var nodes = _orgChartNodeService.GetAllNodes();
 
+            foreach (var node in nodes)
+            {
+                Console.WriteLine($"NodeId={node.NodeId}, PositionId={node.PositionId}, EmployeeId={node.EmployeeId}, TeamId={node.TeamId}, ReportsToNodeId={node.ReportsToNodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
+            }
+
             return new JsonResult(nodes);
         }
 

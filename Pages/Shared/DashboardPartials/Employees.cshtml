@@ -1,0 +1,31 @@
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <button class="btn btn-outline-dark" id="add-employee" onclick="showModal('addEmployeeModal')">Add Employee</button>
+    <table class="table" id="employeesTable">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Position</th> 
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td>@employee.Emid</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.PositionId</td> 
+                    <td>@employee.Status</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="updateEmployeeModal('@employee.Emid')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteEmployee('@employee.Emid')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

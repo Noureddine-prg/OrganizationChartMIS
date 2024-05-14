@@ -1,0 +1,29 @@
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <button class="btn btn-outline-dark">Add Position</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Position ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var position in Model.Positions)
+            {
+                <tr>
+                    <td>@position.Poid</td>
+                    <td>@position.Name</td>
+                    <td>@position.DepartmentId</td> 
+                    <td>@position.Level</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editPosition('@position.Poid') ">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deletePosition('@position.Poid')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

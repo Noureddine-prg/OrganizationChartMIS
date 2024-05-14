@@ -25,27 +25,34 @@ console.log("Initializing OrgChart with data", data);
         data: data,
         schema: {
             model: {
-                Id: "id", 
-                parentId: "parentId", 
+                id: "NodeId",
+                parentId: "ReportsToNodeId",
                 fields: {
-                    id: { field: "NodeId", type: "string", nullable: false },
-                    parentId: { field: "ReportsToNodeId", type: "string", nullable: true },
-                    title: { field: "PositionName", type: "string" },
-                    name: { field: "EmployeeName", type: "string", nullable: true },
-                    EmployeeEmail: { field: "EmployeeEmail", type: "string", nullable: true },
-                    DepartmentName: { field: "DepartmentName", type: "string", nullable: true }
+                    NodeId: { type: "string", nullable: false },
+                    ReportsToNodeId: { type: "string", nullable: true },
+                    PositionName: { type: "string" },
+                    EmployeeName: { type: "string", nullable: true },
+                    EmployeeEmail: { type: "string", nullable: true },
+                    DepartmentName: { type: "string", nullable: true }
                 }
             }
         }
     });
 
-
     $("#orgchart").kendoOrgChart({
         dataSource: orgChartDataSource,
-        dataTextField: ["PositionName","EmployeeEmail","DepartmentName"]
+        template: kendo.template(
+            "<div class='custom-node'>" +
+            "<div class='field'><strong>Position:</strong> #: PositionName #</div>" +
+            "<div class='field'><strong>Name:</strong> #: EmployeeName ? EmployeeName : 'Vacant' #</div>" +
+            "<div class='field'><strong>Email:</strong> #: EmployeeEmail ? EmployeeEmail : 'No email' #</div>" +
+            "<div class='field'><strong>Department:</strong> #: DepartmentName ? DepartmentName : 'No department' #</div>" +
+            "</div>"
+        ),
     });
+    console.log("OrgChart initialized with data source:", orgChartDataSource);
 
-    console.log(orgChartDataSource)
+
     console.log("OrgChart initialized");
 }
 

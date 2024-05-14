@@ -1,0 +1,26 @@
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <button class="btn btn-outline-dark" id="add-team">Add Team</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+                <th>Department ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.Teams)
+            {
+                <tr>
+                    <td>@team.TeamId</td>
+                    <td>@team.TeamName</td>
+                    <td>@team.DepartmentId</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editDepartment('@team.TeamId')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteDepartment('@team.TeamId')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

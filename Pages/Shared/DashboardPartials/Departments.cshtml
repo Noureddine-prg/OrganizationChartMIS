@@ -1,0 +1,26 @@
+<div class="table-responsive" style="height:500px; overflow-y:auto; margin:20px;">
+    <button class="btn btn-outline-dark" id="add-department" onclick="showModal('add-department')">Add Department</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model.Departments)
+            {
+                <tr>
+                    <td>@department.Doid</td>
+                    <td>@department.Name</td>
+                    <td>@department.ReportsTo</td>
+                    <td>
+                        <button class="btn btn-outline-dark" onclick="editDepartment('@department.Doid')">Update</button>
+                        <button class="btn btn-outline-dark" onclick="deleteDepartment('@department.Doid')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
