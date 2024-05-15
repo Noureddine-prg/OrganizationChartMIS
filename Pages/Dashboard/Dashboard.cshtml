@@ -17,14 +17,27 @@
 
 
 <div class="h-100">
+    <div class="text-light container-fluid py-2 d-flex justify-content-between bg-dark border-bottom">
+        <div class="my-auto">
+            <h2>Dashboard</h2>
+        </div>
+        <div class="py-2 d-flex gap-3 my-auto">
 
+            <div class="">
+                <a class="btn btn-primary" href="/OrganizationChart/OrganizationChart">View Organization Chart</a>
+            </div>
+
+            <div class="">
+                <a class="btn btn-secondary" href="/">Home</a>
+            </div>
+        </div>
+    </div>
     <div class="row h-100">
 
         <!-- Navigation bar  -->
         <div class="bg-dark text-white col-4 h-100">
-            <h2>Dashboard</h2>
             <ul class="d-grid gap-2">
-                <a href="OrganizationChart/OrganizationChart">
+                <a href="/OrganizationChart/OrganizationChart">
                     <div>Organization Chart</div>
                 </a>
                 <div onclick="showScreen('screen1')">Departments</div>
@@ -35,21 +48,17 @@
         </div>
 
         <!-- Main content -->
-        <div class="col-8">
+        <div class="col-8" style="background-color: #FDFFFC">
             <div id="screen1" class="screen active">
-                Departments
                 <partial name="DashboardPartials/Departments">
             </div>
             <div id="screen2" class="screen" style="display: none;">
-                Employees
                 <partial name="DashboardPartials/Employees">
             </div>
             <div id="screen3" class="screen" style="display: none;">
-                Positions
                 <partial name="DashboardPartials/Positions">
             </div>
             <div id="screen4" class="screen" style="display: none;">
-                Teams
                 <partial name="DashboardPartials/Teams">
             </div>
         </div>

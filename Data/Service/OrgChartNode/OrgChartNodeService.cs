@@ -43,6 +43,10 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
                     DepartmentName = _departmentService.GetDepartment(_positionService.GetPosition(positionId)?.DepartmentId)?.Name
                 };
 
+                // So when we create and save a node, we need to give the user some options. I want to show the current positions available for the department.
+                // How will we get the positions. Considering grabbing parent node, checking their department, and displaying all available positions for the department. 
+                // the nodeId gets generated on its own, position Id will be set upon selection, reports to will be set on selection (Maybe get all orgnodes within thw same department) 
+
                 Console.WriteLine($"Creating Node: NodeId={nodeId}, PositionId={positionId}, EmployeeId={employeeId}, TeamId={teamId}, ReportsToNodeId={reportsToNodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
 
                 _orgChartNodeRepository.AddNode(node);

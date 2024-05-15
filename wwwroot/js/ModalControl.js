@@ -97,8 +97,6 @@ function updateEmployeeModal(emid) {
         url: `?handler=EditEmployee`,
         data: { emid: emid }, 
         success: function (data) {
-            console.log(data);
-            console.log(data.Emid, "This should be employee data");
             
             $('#emid').val(data.Emid); 
             $('#updateName').val(data.Name); 
@@ -114,6 +112,8 @@ function updateEmployeeModal(emid) {
 }
 
 function updateEmployee() {
+    console.log(formData)
+
     let formData = $('#updateEmployeeForm').serialize();
     $.ajax({
         type: "POST",
@@ -131,7 +131,8 @@ function updateEmployee() {
 }
 
 function deleteEmployee() {
-    let emid = $('#deleteEmployeeId').val(); 
+    let emid = $('#deleteEmployeeId').serialize(); 
+    console.log(emid)
     $.ajax({
         type: "POST",
         url: "?handler=DeleteEmployee",
