@@ -33,13 +33,14 @@ These instructions will get you a copy of the project up and running on your loc
 		- Under Package Source Credentials, add your Telerik credentials:
 
 NuGet.config file. Create if it doesn't appear. 	
+ ```
  <packageSourceCredentials>
   <telerik.com>
     <add key="Username" value="[your.telerik.com@email.login]" />
     <add key="ClearTextPassword" value="[your.telerik.com.password.in.clear.text]" />
   </telerik.com>
 </packageSourceCredentials>
-
+```
 4. Configure Connection String for SQL DB. (appsettings.json)
 
 "ConnectionStrings": {
