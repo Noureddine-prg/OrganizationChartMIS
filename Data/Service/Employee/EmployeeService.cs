@@ -137,5 +137,27 @@ namespace OrganizationChartMIS.Data.Service.Employee
 
             return emid;
         }
+
+        /*public List<EmployeeObject> GetUnassignedEmployees()
+        {
+            try
+            {
+                var allEmployees = _employeeRepository.GetAllEmployees().ToList();
+
+                var allOrgNodes = _orgChartNodeRepository.GetAllNodes();
+
+                var assignedEmployeeIds = allOrgNodes.Select(n => n.EmployeeId).ToList();
+
+                var unassignedEmployees = allEmployees.Where(e => !assignedEmployeeIds.Contains(e.Emid)).ToList();
+
+                return unassignedEmployees;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"GetUnassignedEmployees - Exception: {ex.Message}");
+                return new List<EmployeeObject>();
+            }
+        }*/
+
     }
 }

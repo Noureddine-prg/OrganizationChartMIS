@@ -4,82 +4,15 @@
 @using OrgChartNodeObject = OrganizationChartMIS.Data.Models.OrgChartNode;
 @model OrganizationChartMIS.Pages.OrganizationChart.OrganizationChartModel
 
+<partial name="OrgNodePartials/_AddOrgNode" model="@Model.NewNode" />
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <style>
-
         body {
             background-color: #1D1A31;
-        }
-
-        .orgchart-container{
-            flex: 1;
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            background-color: #1D1A31;
-
-        }
-
-        .k-focus {
-            background-color: #DDFDFE;
-        }
-
-        .k-orgchart-line
-        {
-            color: white;
-        }
-
-        .orgchart-node {
-            border: 1px solid black;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-            padding: 10px;
-            width: 100%;
-            height: 110px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-            .orgchart-node.vacant {
-                background-color: #ffcccc; 
-            }
-
-        .k-orgchart-content {
-            color: black;
-            margin: 5px ;
-            font-size: 0.9em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-        }
-
-
-
-        .k-orgchart-container {
-            min-height: 100vh;
-            max-width: 100vw;
-        }
-
-        .k-orgchart-tools {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            display: none;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-        }
-
-        .k-orgchart-tool {
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
         }
 
         .k-orgchart-name {
@@ -92,15 +25,95 @@
             padding: 2px;
         }
 
-        .k-orgchart-department
-        {
+        .k-orgchart-department {
             font-weight: bold;
         }
 
+        .orgchart-container {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            background-color: #1D1A31;
+        }
+
+        .k-focus {
+            background-color: #DDFDFE;
+        }
+
+        .k-orgchart-line {
+            color: white;
+        }
+
+        .orgchart-node {
+            border: 1px solid black;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            padding: 10px;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+            .orgchart-node.vacant {
+                background-color: #ffcccc;
+            }
+
+        .k-orgchart-content {
+            color: black;
+            margin: 5px;
+            font-size: 0.9em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .k-orgchart-container {
+            min-height: 100vh;
+            max-width: 100vw;
+        }
+
+        .k-orgchart-tools {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border-radius: 3px;
+        }
+
+        .k-orgchart-tool {
+            content: "⋮";
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            background: none;
+            color: black;
+            padding: 0;
+            margin: 0;
+        }
+
         .k-orgchart-tools ul {
+            display: none; 
+            position: absolute; 
+            top: 20px; 
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
             list-style: none;
             padding: 0;
             margin: 0;
+            z-index: 1000; 
+        }
+
+        .k-icon.k-i-more-vertical::before {
+     
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .k-orgchart-tools li {
@@ -130,22 +143,25 @@
     <div id="orgchart" class="orgchart-container"></div>
 
     <script id="customOrgChartTemplate" type="text/x-kendo-template">
-        <div class='orgchart-node #= EmployeeName ? "" : "vacant" # department-#: DepartmentName #'
+        <div class='orgchart-node #= EmployeeName ? "" : "vacant" #' department-#: DepartmentName #'>
             <div class='k-orgchart-content'>
                 <span class='k-orgchart-title'>#: PositionName #</span>
-                <span class='k-orgchart-name'>#: EmployeeName || 'Vacant' #</span>
-                <span class='k-orgchart-email'>#: EmployeeEmail || '' #</span>
-                <span class='k-orgchart-department'>#: DepartmentName || '' #</span>
+                <span class='k-orgchart-name'>#: EmployeeName || "Vacant" #</span>
+                <span class='k-orgchart-email'>#: EmployeeEmail || "" #</span>
+                <span class='k-orgchart-department'>#: DepartmentName || "" #</span>
             </div>
             <div class='k-orgchart-tools'>
-                <button class='k-orgchart-tool k-icon k-i-more-vertical' onclick='toggleMenu(this)'></button>
+                <button class='k-orgchart-tool k-icon k-i-more-vertical' onclick='toggleMenu(this)'>⋮</button>
                 <ul>
+                    <li onclick='createNodeModal("#= NodeId #")'>Create</li>
                     <li onclick='editNode("#= NodeId #")'>Edit</li>
                     <li onclick='deleteNode("#= NodeId #")'>Delete</li>
                 </ul>
             </div>
         </div>
     </script>
+
+
     @section Scripts {
         <script src="~/js/OrgChartControl.js"></script>
     }

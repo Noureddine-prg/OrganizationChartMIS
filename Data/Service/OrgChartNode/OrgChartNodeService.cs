@@ -1,5 +1,8 @@
 ﻿using OrganizationChartMIS.Data.Repositories.OrgChartNode;
 using OrgChartNodeObject = OrganizationChartMIS.Data.Models.OrgChartNode;
+using DepartmentObject = OrganizationChartMIS.Data.Models.Department;
+using PositionObject = OrganizationChartMIS.Data.Models.Position;
+using EmployeeObject = OrganizationChartMIS.Data.Models.Employee;
 using OrganizationChartMIS.Data.Service.Position;
 using OrganizationChartMIS.Data.Service.Employee;
 using OrganizationChartMIS.Data.Service.Department;
@@ -30,6 +33,8 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             try
             {
                 string nodeId = GenerateNodeId();
+                var position = _positionService.GetPosition(positionId);
+                var department = _departmentService.GetDepartment(position?.DepartmentId);
                 var node = new OrgChartNodeObject
                 {
                     NodeId = nodeId,
@@ -37,21 +42,13 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
                     EmployeeId = employeeId,
                     TeamId = teamId,
                     ReportsToNodeId = reportsToNodeId,
-                    PositionName = _positionService.GetPosition(positionId)?.Name,
+                    PositionName = position?.Name,
                     EmployeeName = _employeeService.GetEmployee(employeeId)?.Name,
                     EmployeeEmail = _employeeService.GetEmployee(employeeId)?.Email,
-                    DepartmentName = _departmentService.GetDepartment(_positionService.GetPosition(positionId)?.DepartmentId)?.Name
+                    DepartmentName = department?.Name
                 };
 
-                // So when we create and save a node, we need to give the user some options. I want to show the current positions available for the department.
-                // How will we get the positions. Considering grabbing parent node, checking their department, and displaying all available positions for the department. 
-                // the nodeId gets generated on its own, position Id will be set upon selection, reports to will be set on selection (Maybe get all orgnodes within thw same department) 
-
-                Console.WriteLine($"Creating Node: NodeId={nodeId}, PositionId={positionId}, EmployeeId={employeeId}, TeamId={teamId}, ReportsToNodeId={reportsToNodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
-
                 _orgChartNodeRepository.AddNode(node);
-
-                Console.WriteLine($"Node Created: NodeId={nodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
 
                 return node;
             }
@@ -68,7 +65,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             if (node != null)
             {
                 PopulateNodeDetails(node);
-                Console.WriteLine($"Retrieved Node: NodeId={node.NodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
             }
             return node;
         }
@@ -79,16 +75,25 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             foreach (var node in nodes)
             {
                 PopulateNodeDetails(node);
-                Console.WriteLine($"Retrieved Node: NodeId={node.NodeId}, PositionName={node.PositionName}, EmployeeName={node.EmployeeName}, EmployeeEmail={node.EmployeeEmail}, DepartmentName={node.DepartmentName}");
             }
             return nodes;
+        }
+
+        public List<PositionObject> GetPositionsByDepartment(string departmentId)
+        {
+            return _positionService.GetPositionsByDepartment(departmentId);
+        }
+
+        public List<EmployeeObject> GetAllEmployees()
+        {
+            return _employeeService.GetAllEmployees();
         }
 
         private void PopulateNodeDetails(OrgChartNodeObject node)
         {
             var position = _positionService.GetPosition(node.PositionId);
             var employee = _employeeService.GetEmployee(node.EmployeeId);
-            var department = position != null ? _departmentService.GetDepartment(position.DepartmentId) : null;
+            var department = _departmentService.GetDepartment(position?.DepartmentId);
 
             node.PositionName = position?.Name;
             node.EmployeeName = employee?.Name;
@@ -112,11 +117,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
                     PopulateNodeDetails(existingNode);
 
                     _orgChartNodeRepository.UpdateNode(existingNode);
-                    Console.WriteLine($"Node Updated: NodeId={existingNode.NodeId}, PositionName={existingNode.PositionName}, EmployeeName={existingNode.EmployeeName}, EmployeeEmail={existingNode.EmployeeEmail}, DepartmentName={existingNode.DepartmentName}");
-                }
-                else
-                {
-                    Console.WriteLine("Update Node - Node not found");
                 }
             }
             catch (Exception ex)
@@ -129,17 +129,7 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
         {
             try
             {
-                OrgChartNodeObject node = _orgChartNodeRepository.GetNode(nodeId);
-
-                if (node != null)
-                {
-                    _orgChartNodeRepository.DeleteNode(nodeId);
-                    Console.WriteLine($"Node Deleted: NodeId={nodeId}");
-                }
-                else
-                {
-                    Console.WriteLine("Node not found");
-                }
+                _orgChartNodeRepository.DeleteNode(nodeId);
             }
             catch (Exception ex)
             {
@@ -152,8 +142,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             try
             {
                 _orgChartNodeRepository.AssignEmployeeToNode(nodeId, employeeId);
-
-                Console.WriteLine($"Employee {employeeId} assigned to Node {nodeId}");
             }
             catch (Exception ex)
             {
@@ -166,8 +154,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
             try
             {
                 _orgChartNodeRepository.RemoveEmployeeFromNode(nodeId);
-
-                Console.WriteLine($"Employee Removed from {nodeId}");
             }
             catch (Exception ex)
             {

@@ -13,5 +13,6 @@ namespace OrganizationChartMIS.Data.Service.OrgChartNode
         void AssignEmployeeToNode(string nodeId, string employeeId);
         void RemoveEmployeeFromNode(string nodeId);
         string GenerateNodeId();
+        List<Models.Position> GetPositionsByDepartment(string departmentId);
     }
 }
