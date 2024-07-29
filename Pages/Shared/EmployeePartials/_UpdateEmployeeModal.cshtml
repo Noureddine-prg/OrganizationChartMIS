@@ -1,0 +1,52 @@
+﻿@using OrganizationChartMIS.Data.Models
+
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="updateEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateEmployeeModalLabel">Update Employee</h5>
+            </div>
+            <div class="modal-body">
+                <form id="updateEmployeeForm" method="post">
+
+                    <div class="form-group">
+                        <label for="emid">Emid</label>
+                        <input id="emid" name="emid" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select name="department" class="form-control" id="department" required>
+                            <option>Select a Department</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateName">Full Name</label>
+                        <input id="updateName" name="name" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="updateEmail">Company Email</label>
+                        <input id="updateEmail" name="email" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="updatePosition">Company Position</label>
+                        <select name="positionId" id="updatePosition" class="form-control">
+                            <option>Select Position</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateStatus">Status</label>
+                        <select name="status" id="updateStatus" class="form-control" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="hideModal('updateEmployeeModal')">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="updateEmployee">Update Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

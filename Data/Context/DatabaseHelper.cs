@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Formatters;
 
 
-namespace OrganizationChartMIS.Data.DatabaseHelper
+
+namespace OrganizationChartMIS.Data.Context
 {
     public class DatabaseHelper
     {
         private readonly string _connectionString;
 
-        public DatabaseHelper(string connectionString)
+        public DatabaseHelper(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("OrgMISConnection")!;
         }
 
         public SqlConnection EstablishConnection()
@@ -24,17 +23,17 @@ namespace OrganizationChartMIS.Data.DatabaseHelper
         }
 
         // retrieves data set and stores it in datatable
-        public DataTable ExecuteQuery(string query, Dictionary<string,object> parameters = null) 
+        public DataTable ExecuteQuery(string query, Dictionary<string, object> parameters = null)
         {
-            using (var connection = EstablishConnection()) 
+            using (var connection = EstablishConnection())
             {
-                using (var command = new SqlCommand(query)) 
+                using (var command = new SqlCommand(query, connection))
                 {
-                    if (parameters != null) 
+                    if (parameters != null)
                     {
                         foreach (var entry in parameters)
                         {
-                            command.Parameters.AddWithValue(entry.Key, entry.Value);
+                            command.Parameters.AddWithValue(entry.Key, entry.Value ?? DBNull.Value);
                         }
                     }
 
@@ -49,26 +48,52 @@ namespace OrganizationChartMIS.Data.DatabaseHelper
         }
 
         // updates specified table/field
-        public int ExecuteUpdate(string commandText, Dictionary<string, object> parameters = null) 
+        public int ExecuteUpdate(string commandText, Dictionary<string, object> parameters = null)
         {
-            using (var connection = EstablishConnection()) 
+            using (var connection = EstablishConnection())
             {
-                using (var command = new SqlCommand(commandText, connection)) 
+                using (var command = new SqlCommand(commandText, connection))
                 {
-                    if (parameters != null) 
+                    if (parameters != null)
                     {
                         foreach (var entry in parameters)
                         {
                             command.Parameters.AddWithValue(entry.Key, entry.Value);
                         }
                     }
-                    
+
                     int affectedRows = command.ExecuteNonQuery();
                     Console.WriteLine($"{affectedRows} rows were updated.");
 
                     return affectedRows;
-                }   
+                }
             }
         }
+
+        public object ExecuteScalar(string query, Dictionary<string, object> parameters = null)
+        {
+            using (var connection = EstablishConnection())
+            {
+                using (var command = new SqlCommand(query, connection))
+                {
+                
+                    if (parameters != null)
+                    {
+                        foreach (var pair in parameters)
+                        {
+                            command.Parameters.AddWithValue(pair.Key, pair.Value ?? DBNull.Value);
+                        }
+                    }
+
+                    var result = command.ExecuteScalar();
+
+                    return result;
+                }
+            }
+        }
+
+
+
+
     }
 }
